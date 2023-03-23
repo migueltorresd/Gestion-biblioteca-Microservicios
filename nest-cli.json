@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/clasificacion-de-libros/src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/clasificacion-de-libros/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/clasificacion-de-libros",
+  "projects": {
+    "clasificacion-de-libros": {
+      "type": "application",
+      "root": "apps/clasificacion-de-libros",
+      "entryFile": "main",
+      "sourceRoot": "apps/clasificacion-de-libros/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/clasificacion-de-libros/tsconfig.app.json"
+      }
+    },
+    "gestion-de-prestamos": {
+      "type": "application",
+      "root": "apps/gestion-de-prestamos",
+      "entryFile": "main",
+      "sourceRoot": "apps/gestion-de-prestamos/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/gestion-de-prestamos/tsconfig.app.json"
+      }
+    }
+  }
+}
