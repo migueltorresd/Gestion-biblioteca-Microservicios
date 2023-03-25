@@ -2,7 +2,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Book } from '../../../../domain/entities/book.entity';
 import { BookRepository } from '../../../../domain/repositorios/book.repository.interface';
 import { Model } from 'mongoose';
-import { Observable, from, of } from 'rxjs';
+import { Observable, from } from 'rxjs';
 
 export class BookRepositoryImpl implements BookRepository {
   books: any;
