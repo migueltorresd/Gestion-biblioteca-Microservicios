@@ -1,5 +1,5 @@
 /**
- * Interfaz que representa un libro
+ * Esta clase representa la entidad de libro
  *
  * @export
  * @param {id} string // id del libro
@@ -11,7 +11,7 @@
  * @param {updatedAt} Date // fecha de actualizacion del libro
  * @interface Book
  */
-export interface Book {
+export class BookEntity {
   id: string;
   title: string;
   author: string;
