@@ -2,12 +2,12 @@ import { Observable } from 'rxjs';
 import { BookEntity } from '../entities/book.entity';
 
 export interface IBoookDomainService {
-  createBookEntity(bookEntityEntity: BookEntity): Observable<BookEntity>;
-  findBookEntitys(
+  createBook(bookEntity: BookEntity): Observable<BookEntity>;
+  findBooks(
     query: string,
     author: string,
     title: string,
   ): Observable<BookEntity[]>;
-  updateBookEntity(bookEntity: BookEntity): Observable<BookEntity>;
-  deleteBookEntity(bookEntity: BookEntity): Observable<BookEntity>;
+  updateBook(bookEntity: BookEntity): Observable<BookEntity>;
+  deleteBook(bookEntity: BookEntity): Observable<BookEntity>;
 }

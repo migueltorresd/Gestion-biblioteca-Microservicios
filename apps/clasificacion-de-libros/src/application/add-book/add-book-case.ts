@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { BookEntity } from '../../domain/entities/book.entity';
-import { IBookDomainService } from '../../domain/services/book.service';
+import { IBoookDomainService } from '../../domain/services/book.service';
 
 /**
  * Este caso de uso se encarga de crear un libro en la base de datos
@@ -8,8 +8,8 @@ import { IBookDomainService } from '../../domain/services/book.service';
  * @export
  * @class createBookUseCase
  */
-export class createBookUseCase {
-  constructor(private readonly bookService: IBookDomainService) {}
+export class CreateBookUseCase {
+  constructor(private readonly bookService: IBoookDomainService) {}
 
   /**
    * Ejecuta el caso de uso de crear un libro que usa un observable de rxjs para poder ser escuchado por el componente que lo llame y retorna el libro creado

@@ -1,5 +1,7 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { Observable } from 'rxjs';
+import { CreateBookUseCase } from '../../application/add-book/add-book-case';
+import { BookService } from '../../book.service';
 import { BookEntity } from '../../domain/entities/book.entity';
 
 /**
@@ -10,11 +12,11 @@ import { BookEntity } from '../../domain/entities/book.entity';
  */
 @Controller('Classification')
 export class ClassificationController {
-  constructor(private readonly addBookService: AddBookService) {}
+  constructor(private readonly bookService: BookService) {}
 
   @Post()
   createBook(@Body() bookEntity: BookEntity): Observable<BookEntity> {
-    const useCase = new AddBookUseCase(this.addBookService);
-    return this.addBookService.createBook(bookEntity);
+    const useCase = new CreateBookUseCase(this.bookService);
+    return useCase.execute(bookEntity);
   }
 }
