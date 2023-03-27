@@ -16,7 +16,7 @@ import { AuthorDomainEntity } from './author-domain.entity';
 export class BookEntity {
   id: string;
   title: string;
-  author: AuthorDomainEntity[];
+  author: string; //pasar id
   description: string;
   publishedDate?: Date;
   createdAt: Date;

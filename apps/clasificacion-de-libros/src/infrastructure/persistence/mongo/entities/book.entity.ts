@@ -10,7 +10,7 @@ export class BookEntityMongo extends BookEntity {
   title: string;
 
   @Column((type) => AuthorEntityMongo)
-  author: AuthorEntityMongo[];
+  author: string;
 
   @Column()
   description: string;

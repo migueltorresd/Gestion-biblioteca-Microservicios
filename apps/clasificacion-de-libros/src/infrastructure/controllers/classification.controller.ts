@@ -1,6 +1,16 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { CreateBookUseCase } from '../../application/add-book/add-book-case';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
+import { map, Observable } from 'rxjs';
+import { CreateBookUseCase } from '../../application/create-book/create-book-case';
+import { DeleteBookUseCase } from '../../application/delete-book/delete-book';
+import { GetBookUseCase } from '../../application/get-book/get-book-case';
 import { BookEntity } from '../../domain/entities/book.entity';
 import { createBookDto } from '../dto/create-book.dto';
 import { BookService } from '../persistence/servces/book.service';
@@ -15,9 +25,37 @@ import { BookService } from '../persistence/servces/book.service';
 export class ClassificationController {
   constructor(private readonly bookService: BookService) {}
 
+  /**
+   * Este metodo es el encargado de recibir la peticion de crear un libro
+  
+   *
+   * @param {createBookDto} bookEntity
+   * @return {Observable<BookEntity>} // retorna un observable de un BookEntity
+   * @memberof ClassificationController
+   */
   @Post()
   createBook(@Body() bookEntity: createBookDto): Observable<BookEntity> {
     const useCase = new CreateBookUseCase(this.bookService);
     return useCase.execute(bookEntity);
+  }
+
+  /**
+   * Este metodo es el encargado de recibir la peticion de buscar un libro por su titulo
+   *
+   * @param {string} title
+   * @return {{Observable<BookDto[]>} // retorna un observable de un array de BookDto
+   * @memberof ClassificationController
+   */
+
+  @Get(':title')
+  findBookByTitle(@Param('title') title: string) {
+    const usecase = new GetBookUseCase(this.bookService);
+    return usecase.execute(title);
+  }
+
+  @Delete(':id')
+  deleteBook(@Param('id') id: string) {
+    const usecase = new DeleteBookUseCase(this.bookService);
+    return usecase.execute(id);
   }
 }

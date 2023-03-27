@@ -1,5 +1,4 @@
 import { IsDate, IsNotEmpty, IsObject, IsString } from 'class-validator';
-import { AuthorDto } from './author.dto';
 
 export class createBookDto {
   @IsString()
@@ -10,7 +9,7 @@ export class createBookDto {
   title: string;
 
   @IsObject()
-  author: AuthorDto[];
+  author: string;
 
   @IsString()
   description: string;
