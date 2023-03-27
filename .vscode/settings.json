@@ -1,4 +1,5 @@
 {
+    "jest.autoRun": "off",
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#ef5959",
         "activityBar.background": "#ef5959",
@@ -19,4 +20,5 @@
         "titleBar.inactiveForeground": "#e7e7e799"
     },
     "peacock.color": "#EA2B2B"
+   
 }

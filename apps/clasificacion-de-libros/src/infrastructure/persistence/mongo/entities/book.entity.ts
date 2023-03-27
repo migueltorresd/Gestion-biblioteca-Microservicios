@@ -1,6 +1,7 @@
 import { BookEntity } from 'apps/clasificacion-de-libros/src/domain/entities/book.entity';
-import { Column, ObjectIdColumn } from 'typeorm';
-
+import { Column, Entity, ObjectIdColumn } from 'typeorm';
+import { AuthorEntityMongo } from './autor.entity';
+@Entity()
 export class BookEntityMongo extends BookEntity {
   @ObjectIdColumn()
   id: string;
@@ -8,8 +9,8 @@ export class BookEntityMongo extends BookEntity {
   @Column()
   title: string;
 
-  @Column()
-  author: string;
+  @Column((type) => AuthorEntityMongo)
+  author: AuthorEntityMongo[];
 
   @Column()
   description: string;

@@ -1,3 +1,5 @@
+import { AuthorDomainEntity } from './author-domain.entity';
+
 /**
  * Esta clase representa la entidad de libro
  *
@@ -14,7 +16,7 @@
 export class BookEntity {
   id: string;
   title: string;
-  author: string;
+  author: AuthorDomainEntity[];
   description: string;
   publishedDate?: Date;
   createdAt: Date;
