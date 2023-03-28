@@ -5,8 +5,14 @@
     "version": "0.2.0",
     "configurations": [
       {
-        "command": "npm run start:dev",
-        "name": "Run npm start",
+        "command": "npm run star:clasificacion-de-libros",
+        "name": "Run npm start user-app",
+        "request": "launch",
+        "type": "node-terminal"
+      },
+      {
+        "command": "npm run star:gestion-de-prestamos",
+        "name": "Run npm start book-tickets",
         "request": "launch",
         "type": "node-terminal"
       }

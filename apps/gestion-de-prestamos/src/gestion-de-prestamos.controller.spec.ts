@@ -11,7 +11,9 @@ describe('GestionDePrestamosController', () => {
       providers: [GestionDePrestamosService],
     }).compile();
 
-    gestionDePrestamosController = app.get<GestionDePrestamosController>(GestionDePrestamosController);
+    gestionDePrestamosController = app.get<GestionDePrestamosController>(
+      GestionDePrestamosController,
+    );
   });
 
   describe('root', () => {

@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { CreateBookPublisher } from './publishers/create-book.publisher';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     ]),
   ],
   controllers: [],
-  providers: [ClientsModule],
-  exports: [ClientsModule],
+  providers: [ClientsModule, CreateBookPublisher],
+  exports: [ClientsModule, CreateBookPublisher],
 })
 export class MessagingModule {}

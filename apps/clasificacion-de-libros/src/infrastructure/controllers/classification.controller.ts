@@ -13,6 +13,7 @@ import { DeleteBookUseCase } from '../../application/delete-book/delete-book';
 import { GetBookUseCase } from '../../application/get-book/get-book-case';
 import { BookEntity } from '../../domain/entities/book.entity';
 import { createBookDto } from '../dto/create-book.dto';
+import { CreateBookPublisher } from '../messaging/publishers/create-book.publisher';
 import { BookService } from '../persistence/servces/book.service';
 
 /**
@@ -23,7 +24,10 @@ import { BookService } from '../persistence/servces/book.service';
  */
 @Controller('Classification')
 export class ClassificationController {
-  constructor(private readonly bookService: BookService) {}
+  constructor(
+    private readonly bookService: BookService,
+    private readonly createBookPublisher: CreateBookPublisher,
+  ) {}
 
   /**
    * Este metodo es el encargado de recibir la peticion de crear un libro
@@ -36,6 +40,7 @@ export class ClassificationController {
   @Post()
   createBook(@Body() bookEntity: createBookDto): Observable<BookEntity> {
     const useCase = new CreateBookUseCase(this.bookService);
+    this.createBookPublisher.publish(bookEntity);
     return useCase.execute(bookEntity);
   }
 
