@@ -6,13 +6,13 @@
     "configurations": [
       {
         "command": "npm run star:clasificacion-de-libros",
-        "name": "Run npm start user-app",
+        "name": "Run npm start clasificacion-de-libro",
         "request": "launch",
         "type": "node-terminal"
       },
       {
         "command": "npm run star:gestion-de-prestamos",
-        "name": "Run npm start book-tickets",
+        "name": "Run npm start gestion-de-prestamos",
         "request": "launch",
         "type": "node-terminal"
       }
