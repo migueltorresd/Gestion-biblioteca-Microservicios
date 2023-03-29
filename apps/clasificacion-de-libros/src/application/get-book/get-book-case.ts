@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { BookEntity } from '../../domain/entities/book.entity';
+import { BookDomainEntity } from '../../domain/entities/book-domain.entity';
 import { IBoookDomainService } from '../../domain/services/book.service';
 
 /**
@@ -20,10 +20,10 @@ export class GetBookUseCase {
    *
    * @param {string} query
    * @param {string} title
-   * @return {Observable<BookEntity[]>}
+   * @return {Observable<BookDomainEntity[]>}
    * @memberof GetBookUseCase
    */
-  execute(title: string): Observable<BookEntity[]> {
+  execute(title: string): Observable<BookDomainEntity[]> {
     return this.bookService.findBookByTitle(title);
   }
 }

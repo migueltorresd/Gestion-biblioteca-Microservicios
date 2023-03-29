@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common/decorators';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BookEntity } from 'apps/clasificacion-de-libros/src/domain/entities/book.entity';
-import { Observable, from, switchMap, mapTo } from 'rxjs';
-import { FindManyOptions, Like, Repository } from 'typeorm';
-import { DeleteBookDto } from '../../../dto/delete.dto';
+import { Observable, from, mapTo } from 'rxjs';
+import { FindManyOptions, Repository } from 'typeorm';
 import { BookEntityMongo } from '../entities/book.entity';
 import { IBase } from './interfaces/base.interface';
 
@@ -14,15 +12,8 @@ export class BookRepository implements IBase<BookEntityMongo> {
     private bookRepository: Repository<BookEntityMongo>,
   ) {}
 
-  /**
-   * este metodo se encarga de buscar un libro por su id
-   *
-   * @param {Book} book // libro a buscar
-   * @return {Observable<BookEntity>} // libro encontrado
-   * @memberof BookEntityRepositoryImpl // repositorio de libros
-   */
   // se usa un observable para que el metodo sea asincrono y no se bloquee el hilo de ejecucion
-  create(BookEntityMongo): Observable<BookEntity> {
+  create(BookEntityMongo): Observable<BookEntityMongo> {
     return from(this.bookRepository.save(BookEntityMongo));
   }
 
@@ -33,7 +24,7 @@ export class BookRepository implements IBase<BookEntityMongo> {
    * @return {Observable<BookEntity[]>} // libro encontrado
    * @memberof BookRepository
    */
-  findBookByTitle(title: string): Observable<BookEntity[]> {
+  findBookByTitle(title: string): Observable<BookEntityMongo[]> {
     const options: FindManyOptions<BookEntityMongo> = {
       where: {
         title: title,

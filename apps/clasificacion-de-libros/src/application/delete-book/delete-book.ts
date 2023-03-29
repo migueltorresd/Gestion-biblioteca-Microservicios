@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { BookEntity } from '../../domain/entities/book.entity';
+import { BookEntity } from '../../domain/entities/book-domain.entity';
 import { IBoookDomainService } from '../../domain/services/book.service';
 
 /**

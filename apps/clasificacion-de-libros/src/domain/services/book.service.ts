@@ -1,32 +1,34 @@
 import { Observable } from 'rxjs';
-import { BookEntity } from '../entities/book.entity';
+import { BookDomainEntity } from '../entities/book-domain.entity';
 
-export interface IBoookDomainService<Entity extends BookEntity = BookEntity> {
+export interface IBoookDomainService<
+  Entity extends BookDomainEntity = BookDomainEntity,
+> {
   /**
    * este metodo se encarga de crear un libro
    *
-   * @param {BookEntity} bookEntity
-   * @return {Observable<BookEntity>} // retorna un observable de tipo BookEntity
+   * @param {BookDomainEntity} bookEntity
+   * @return {Observable<BookDomainEntity>} // retorna un observable de tipo BookDomainEntity
    * @memberof IBoookDomainService
    */
-  createBook(bookEntity: BookEntity): Observable<BookEntity>;
+  createBook(bookEntity: BookDomainEntity): Observable<BookDomainEntity>;
 
   /**
    *  este metodo se encarga de buscar un libro por su id
    *
    * @param {string} query
-   * @return {Observable<BookEntity[]>} // retorna un observable de tipo BookEntity[]
+   * @return {Observable<BookDomainEntity[]>} // retorna un observable de tipo BookDomainEntity[]
    * @memberof IBoookDomainService
    */
-  findBookByTitle(query: string): Observable<BookEntity[]>;
-  // updateBook(bookEntity: BookEntity): Observable<BookEntity>;
+  findBookByTitle(query: string): Observable<BookDomainEntity[]>;
+  // updateBook(bookEntity: BookDomainEntity): Observable<BookDomainEntity>;
 
   /**
    * este metodo se encarga de eliminar un libro
    *
-   * @param {BookEntity} bookEntity
-   * @return {Observable<BookEntity>}
+   * @param {BookDomainEntity} bookEntity
+   * @return {Observable<BookDomainEntity>}
    * @memberof IBoookDomainService
    */
-  deleteBook(id: string): Observable<BookEntity>;
+  deleteBook(id: string): Observable<BookDomainEntity>;
 }

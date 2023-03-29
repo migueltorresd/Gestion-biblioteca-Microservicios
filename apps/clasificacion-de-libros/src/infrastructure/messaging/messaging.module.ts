@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { CreateBookPublisher } from './publishers/create-book.publisher';
+import { FindBookByTitlePublisher } from './publishers/find-book-by-title-publisher ';
 
 /**
  * Este modulo se encarga de configurar la cola de mensajeria
@@ -25,7 +26,7 @@ import { CreateBookPublisher } from './publishers/create-book.publisher';
     ]),
   ],
   controllers: [],
-  providers: [ClientsModule, CreateBookPublisher],
-  exports: [ClientsModule, CreateBookPublisher],
+  providers: [ClientsModule, CreateBookPublisher, FindBookByTitlePublisher],
+  exports: [ClientsModule, CreateBookPublisher, FindBookByTitlePublisher],
 })
 export class MessagingModule {}

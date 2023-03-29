@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { BookEntity } from 'apps/clasificacion-de-libros/src/domain/entities/book.entity';
+import { BookDomainEntity } from 'apps/clasificacion-de-libros/src/domain/entities/book-domain.entity';
 import { IBoookDomainService } from 'apps/clasificacion-de-libros/src/domain/services/book.service';
 import { from, Observable, of, switchMap } from 'rxjs';
 import { DeleteBookDto } from '../../../dto/delete.dto';
@@ -15,11 +15,11 @@ export class BookMongoService implements IBoookDomainService<BookEntityMongo> {
    * Este metodo es el encargado de crear un libro
    * usa el observable from para convertir la promesa en un observable
    *
-   * @param {BookEntity} bookEntity
-   * @return {Observable<BookEntity>} // retorna un observable de un BookEntity
+   * @param {BookDomainEntity} bookEntity
+   * @return {Observable<BookDomainEntity>} // retorna un observable de un BookEntity
    * @memberof BookMongoService
    */
-  createBook(bookEntity: BookEntity): Observable<BookEntity> {
+  createBook(bookEntity: BookDomainEntity): Observable<BookDomainEntity> {
     return from(this.bookRepository.create(bookEntity));
   }
   /**
@@ -27,10 +27,10 @@ export class BookMongoService implements IBoookDomainService<BookEntityMongo> {
    * usa el observable from para convertir la promesa en un observable
    *
    * @param {string} title
-   * @return {Observable<BookEntity[]>} // retorna un observable de un array de BookEntity
+   * @return {Observable<BookDomainEntity[]>} // retorna un observable de un array de BookEntity
    * @memberof BookMongoService
    */
-  findBookByTitle(title: string): Observable<BookEntity[]> {
+  findBookByTitle(title: string): Observable<BookDomainEntity[]> {
     return from(this.bookRepository.findBookByTitle(title));
   }
 

@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { BookEntity } from '../../domain/entities/book.entity';
+import { BookDomainEntity } from '../../domain/entities/book-domain.entity';
 import { IBoookDomainService } from '../../domain/services/book.service';
 
 /**
@@ -14,11 +14,11 @@ export class CreateBookUseCase {
   /**
    * Ejecuta el caso de uso de crear un libro que usa un observable de rxjs para poder ser escuchado por el componente que lo llame y retorna el libro creado
    *
-   * @param {BookEntity} bookEntity // El libro a crear en la base de datos
-   * @return {Observable<BookEntity>} // Retorna un observable de rxjs que contiene el libro creado
+   * @param {BookDomainEntity} bookEntity // El libro a crear en la base de datos
+   * @return {Observable<BookDomainEntity>} // Retorna un observable de rxjs que contiene el libro creado
    * @memberof createBookUseCase
    */
-  execute(bookEntity: BookEntity): Observable<BookEntity> {
+  execute(bookEntity: BookDomainEntity): Observable<BookDomainEntity> {
     return this.bookService.createBook(bookEntity);
   }
 }

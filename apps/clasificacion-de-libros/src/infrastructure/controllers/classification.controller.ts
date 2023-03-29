@@ -11,9 +11,10 @@ import { map, Observable } from 'rxjs';
 import { CreateBookUseCase } from '../../application/create-book/create-book-case';
 import { DeleteBookUseCase } from '../../application/delete-book/delete-book';
 import { GetBookUseCase } from '../../application/get-book/get-book-case';
-import { BookEntity } from '../../domain/entities/book.entity';
+import { BookDomainEntity } from '../../domain/entities/book-domain.entity';
 import { createBookDto } from '../dto/create-book.dto';
 import { CreateBookPublisher } from '../messaging/publishers/create-book.publisher';
+import { FindBookByTitlePublisher } from '../messaging/publishers/find-book-by-title-publisher ';
 import { BookService } from '../persistence/servces/book.service';
 
 /**
@@ -27,6 +28,7 @@ export class ClassificationController {
   constructor(
     private readonly bookService: BookService,
     private readonly createBookPublisher: CreateBookPublisher,
+    private readonly findBookByTitlePublisher: FindBookByTitlePublisher,
   ) {}
 
   /**
@@ -34,11 +36,11 @@ export class ClassificationController {
   
    *
    * @param {createBookDto} bookEntity
-   * @return {Observable<BookEntity>} // retorna un observable de un BookEntity
+   * @return {Observable<BookDomainEntity>} // retorna un observable de un BookDomainEntity
    * @memberof ClassificationController
    */
   @Post()
-  createBook(@Body() bookEntity: createBookDto): Observable<BookEntity> {
+  createBook(@Body() bookEntity: createBookDto): Observable<BookDomainEntity> {
     const useCase = new CreateBookUseCase(this.bookService);
     this.createBookPublisher.publish(bookEntity);
     return useCase.execute(bookEntity);
@@ -55,6 +57,7 @@ export class ClassificationController {
   @Get(':title')
   findBookByTitle(@Param('title') title: string) {
     const usecase = new GetBookUseCase(this.bookService);
+    this.findBookByTitlePublisher.publish(title);
     return usecase.execute(title);
   }
 
