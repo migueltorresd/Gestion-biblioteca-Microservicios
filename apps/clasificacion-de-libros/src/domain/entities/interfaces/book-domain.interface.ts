@@ -1,5 +1,6 @@
 /**
  * Interface para la entidad Book Domain Entity
+ * @param {id} string // id del libro
  * @param {title} string // titulo del libro
  * @param {author} string // autor del libro
  * @param {description} string // descripcion del libro
@@ -10,6 +11,7 @@
  * @interface BookDomainInterface
  */
 export interface IBookDomainInterface {
+  _id: string;
   title: string;
   author: string;
   description: string;

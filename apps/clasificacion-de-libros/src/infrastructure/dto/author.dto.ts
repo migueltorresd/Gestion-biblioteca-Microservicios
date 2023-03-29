@@ -2,7 +2,7 @@ import { IsDate, IsString } from 'class-validator';
 
 export class AuthorDto {
   @IsString()
-  id: string;
+  _id: string;
 
   @IsString()
   name: string;

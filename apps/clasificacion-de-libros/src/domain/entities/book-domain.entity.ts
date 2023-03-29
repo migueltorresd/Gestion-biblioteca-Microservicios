@@ -2,6 +2,7 @@ import { IBookDomainInterface } from './interfaces/book-domain.interface';
 
 /**
  * Esta clase representa la entidad de libro
+ * @param {id} string // id del libro
  * @param {title} string // titulo del libro
  * @param {author} string // autor del libro
  * @param {description} string // descripcion del libro
@@ -13,6 +14,7 @@ import { IBookDomainInterface } from './interfaces/book-domain.interface';
  * @implements {IBookDomainInterface} // implementa la interfaz IBookDomainInterface
  */
 export class BookDomainEntity implements IBookDomainInterface {
+  _id: string;
   author: string;
   description: string;
   publishedDate?: Date;
@@ -26,11 +28,14 @@ export class BookDomainEntity implements IBookDomainInterface {
    * @memberof BookDomainEntity
    */
   constructor(data: IBookDomainInterface) {
-    this.author = data.author;
-    this.description = data.description;
-    this.publishedDate = data.publishedDate;
-    this.createdAt = data.createdAt;
-    this.updatedAt = data.updatedAt;
-    this.title = data.title;
+    if (data) {
+      this._id = data._id;
+      this.author = data.author;
+      this.description = data.description;
+      this.publishedDate = data.publishedDate;
+      this.createdAt = data.createdAt;
+      this.updatedAt = data.updatedAt;
+      this.title = data.title;
+    }
   }
 }

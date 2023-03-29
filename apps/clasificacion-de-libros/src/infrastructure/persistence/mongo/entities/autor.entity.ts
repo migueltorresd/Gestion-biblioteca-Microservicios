@@ -4,7 +4,7 @@ import { Column, Entity, ObjectIdColumn } from 'typeorm';
 @Entity()
 export class AuthorEntityMongo extends AuthorDomainEntity {
   @ObjectIdColumn()
-  id: string;
+  _id: string;
 
   @Column()
   name: string;

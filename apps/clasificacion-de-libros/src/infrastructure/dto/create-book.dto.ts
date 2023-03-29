@@ -2,7 +2,7 @@ import { IsDate, IsNotEmpty, IsObject, IsString } from 'class-validator';
 
 export class createBookDto {
   @IsString()
-  id: string;
+  _id: string;
 
   @IsString()
   @IsNotEmpty()

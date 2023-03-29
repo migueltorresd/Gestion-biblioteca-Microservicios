@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { BookEntity } from '../../domain/entities/book-domain.entity';
+import { BookDomainEntity } from '../../domain/entities/book-domain.entity';
 import { IBoookDomainService } from '../../domain/services/book.service';
 
 /**
@@ -16,10 +16,10 @@ export class DeleteBookUseCase {
    * por el componente que lo llame y retorna el libro eliminado
    *
    * @param {string} id // El id del libro a eliminar
-   * @return {Observable<BookEntity>} // Retorna un observable de rxjs que contiene el libro eliminado
+   * @return {Observable<BookDomainEntity>} // Retorna un observable de rxjs que contiene el libro eliminado
    * @memberof DeleteBookUseCase
    */
-  execute(id: string): Observable<BookEntity> {
+  execute(id: string): Observable<BookDomainEntity> {
     return this.bookService.deleteBook(id);
   }
 }

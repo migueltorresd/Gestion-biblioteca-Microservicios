@@ -4,7 +4,7 @@ import { AuthorEntityMongo } from './autor.entity';
 @Entity()
 export class BookEntityMongo extends BookDomainEntity {
   @ObjectIdColumn()
-  id: string;
+  _id: string;
 
   @Column()
   title: string;

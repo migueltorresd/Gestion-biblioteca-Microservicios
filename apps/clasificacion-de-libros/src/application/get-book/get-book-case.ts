@@ -18,7 +18,6 @@ export class GetBookUseCase {
    * el observable se encarga de emitir el libro buscado y se puede subscribir a
    * el desde el componente que lo llame
    *
-   * @param {string} query
    * @param {string} title
    * @return {Observable<BookDomainEntity[]>}
    * @memberof GetBookUseCase
