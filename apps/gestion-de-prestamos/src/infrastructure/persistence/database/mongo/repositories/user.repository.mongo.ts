@@ -1,13 +1,21 @@
-import { InjectRepository } from "@nestjs/typeorm";
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { InjectRepository } from '@nestjs/typeorm';
+import { UserDomainModel } from 'apps/gestion-de-prestamos/src/domain/models/user.model';
+import { Observable, from } from 'rxjs';
+import { Repository } from 'typeorm';
+import { userDocument, UserSchemaMongo } from '../schemas/user.schema';
+import { IBase } from './interfaces/base.interface';
 
-export class UserRepository implements IBase<UserEntityMongo> {
+@Injectable()
+export class UserRepository implements IBase<UserSchemaMongo> {
   constructor(
-    @InjectRepository(UserEntityMongo)
-    private userRepository: Repository<UserEntityMongo>,
+    @InjectModel(UserSchemaMongo.name)
+    private userRepository: Repository<userDocument>,
   ) {}
 
   // se usa un observable para que el metodo sea asincrono y no se bloquee el hilo de ejecucion
-  create(UserEntityMongo): Observable<UserDomainEntity> {
-    return from(this.userRepository.save(UserEntityMongo));
+  create(UserEntityMongo): Observable<UserDomainModel> {
+    return from(this.userRepository.create(UserEntityMongo));
   }
 }

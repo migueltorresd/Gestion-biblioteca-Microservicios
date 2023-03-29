@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
-import { UserDomainEntity } from '../models/user.model';
+import { UserDomainModel } from '../models/user.model';
 
-export interface IUserDomainInterface {
-  createUser(userEntity: UserDomainEntity): Observable<UserDomainEntity>;
+export interface IUserDomainInterface<UserDomainModel> {
+  createUser(userEntity: UserDomainModel): Observable<UserDomainModel>;
 }

@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { BookDomainEntity } from 'apps/clasificacion-de-libros/src/domain/entities/book-domain.entity';
 import { IBoookDomainService } from 'apps/clasificacion-de-libros/src/domain/services/book.service';
 import { from, Observable, of, switchMap } from 'rxjs';
-import { DeleteBookDto } from '../../../dto/delete.dto';
 
 import { BookEntityMongo } from '../entities/book.entity';
 import { BookRepository } from '../repositories/book.repository.mongo';

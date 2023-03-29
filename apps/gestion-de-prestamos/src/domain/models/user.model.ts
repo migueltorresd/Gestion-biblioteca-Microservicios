@@ -11,10 +11,10 @@ import { IUserDomainInterface } from './interfaces/user-domain.interface';
  * @param {lender} string // los prestamos de libros del usuario
  *
  * @export
- * @class UserDomainEntity
+ * @class UserDomainModel
  * @implements {IUserDomainInterface}
  */
-export class UserDomainEntity implements IUserDomainInterface {
+export class UserDomainModel implements IUserDomainInterface {
   name: string;
   email: string;
   doument: string;
@@ -26,7 +26,7 @@ export class UserDomainEntity implements IUserDomainInterface {
   /**
    * se crea una instancia de la entidad de usuario
    * @param {IUserDomainInterface} data // los datos de la entidad de usuario
-   * @memberof UserDomainEntity
+   * @memberof UserDomainModel
    */
   constructor(data: IUserDomainInterface) {
     if (data) {

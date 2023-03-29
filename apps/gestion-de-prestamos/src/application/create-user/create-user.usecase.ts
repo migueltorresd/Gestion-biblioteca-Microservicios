@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { UserDomainEntity } from '../../domain/models/user.model';
+import { UserDomainModel } from '../../domain/models/user.model';
 import { IUserDomainInterface } from '../../domain/services/user.service';
 
 /**
@@ -10,9 +10,11 @@ import { IUserDomainInterface } from '../../domain/services/user.service';
  * @class CreateUserUseCase
  */
 export class CreateUserUseCase {
-  constructor(private readonly userService: IUserDomainInterface) {}
+  constructor(
+    private readonly userService: IUserDomainInterface<UserDomainModel>,
+  ) {}
 
-  execute(userEntity: UserDomainEntity): Observable<UserDomainEntity> {
+  execute(userEntity: UserDomainModel): Observable<UserDomainModel> {
     return this.userService.createUser(userEntity);
   }
 }

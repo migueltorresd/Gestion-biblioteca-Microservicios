@@ -26,6 +26,8 @@ export class TypeOrmMongoDBConfigService implements TypeOrmOptionsFactory {
       type: 'mongodb',
       host: this.configService.get<string>('DB_HOST'),
       port: this.configService.get<number>('DB_PORT'),
+      username: this.configService.get<string>('DB_USER'),
+      password: this.configService.get<string>('DB_PASSWORD'),
       database: this.configService.get<string>('DB_NAME_BOOK'),
       authSource: 'admin', // con esto se puede autenticar en la base de datos
       entities: [BookEntityMongo, AuthorEntityMongo], // con esto se pueden agregar las entidades de la base de datos a la conexion
