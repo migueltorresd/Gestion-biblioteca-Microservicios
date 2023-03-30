@@ -1,6 +1,14 @@
 import { Observable } from 'rxjs';
 import { BookDomainEntity } from '../entities/book-domain.entity';
 
+/**
+ * Esta interface representa el servicio de dominio de libro y contiene los metodos
+ * que se encargan de crear, buscar y eliminar un libro
+ *
+ * @export
+ * @interface IBoookDomainService
+ * @template Entity
+ */
 export interface IBoookDomainService<
   Entity extends BookDomainEntity = BookDomainEntity,
 > {
@@ -21,7 +29,6 @@ export interface IBoookDomainService<
    * @memberof IBoookDomainService
    */
   findBookByTitle(query: string): Observable<BookDomainEntity[]>;
-  // updateBook(bookEntity: BookDomainEntity): Observable<BookDomainEntity>;
 
   /**
    * este metodo se encarga de eliminar un libro

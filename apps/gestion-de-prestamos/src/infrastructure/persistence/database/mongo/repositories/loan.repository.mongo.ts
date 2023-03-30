@@ -1,5 +1,6 @@
 import { InjectModel } from '@nestjs/mongoose';
-import { Observable, from } from 'rxjs';
+import { LoanDomainModel } from 'apps/gestion-de-prestamos/src/domain/models/loan.model';
+import { Observable, from, switchMap } from 'rxjs';
 import { Repository } from 'typeorm';
 import { LoanSchemaMongo, loanDocument } from '../schemas/loan.schema';
 
@@ -11,8 +12,10 @@ export class LoanRepository {
 
   update(
     id: string,
-    update: Partial<LoanSchemaMongo>,
-  ): Observable<LoanSchemaMongo> {
-    return from(this.loanRepository.update(id, update));
+    update: Partial<LoanDomainModel>,
+  ): Observable<LoanDomainModel> {
+    return from(this.loanModel.updateOne({ _id: id }, update)).pipe(
+      switchMap(() => this.LoanDomainModel.findById(id)),
+    );
   }
 }

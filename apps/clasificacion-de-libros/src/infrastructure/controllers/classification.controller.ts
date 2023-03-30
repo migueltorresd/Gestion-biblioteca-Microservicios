@@ -18,7 +18,7 @@ import { FindBookByTitlePublisher } from '../messaging/publishers/find-book-by-t
 import { BookService } from '../persistence/servces/book.service';
 
 /**
- * Este controlador es el encargado de recibir las peticiones
+ * Este controlador es el encargado de recibir las peticiones de crear, buscar y eliminar un libro
  *
  * @export
  * @class ClassificationController
@@ -61,6 +61,13 @@ export class ClassificationController {
     return usecase.execute(title);
   }
 
+  /**
+   * Este metodo es el encargado de recibir la peticion de eliminar un libro por su id
+   *
+   * @param {string} id
+   * @return
+   * @memberof ClassificationController
+   */
   @Delete(':id')
   deleteBook(@Param('id') id: string) {
     const usecase = new DeleteBookUseCase(this.bookService);

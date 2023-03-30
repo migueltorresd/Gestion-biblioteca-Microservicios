@@ -24,18 +24,22 @@ export class BookDomainEntity implements IBookDomainInterface {
 
   /**
    * se crea una instancia de la entidad de libro
+   * @param {id} string // id del libro
+   * @param {title} string // titulo del libro
+   * @param {author} string // autor del libro
+   * @param {description} string // descripcion del libro
+   * @param {publishedDate} Date // fecha de publicacion del libro
+   * @param {createdAt} Date // fecha de creacion del libro
    * @param {IBookDomainInterface} data // los datos de la entidad de libro
    * @memberof BookDomainEntity
    */
   constructor(data: IBookDomainInterface) {
-    if (data) {
-      this._id = data._id;
-      this.author = data.author;
-      this.description = data.description;
-      this.publishedDate = data.publishedDate;
-      this.createdAt = data.createdAt;
-      this.updatedAt = data.updatedAt;
-      this.title = data.title;
-    }
+    this._id = data && data._id;
+    this.author = data && data.author;
+    this.description = data && data.description;
+    this.publishedDate = data && data.publishedDate;
+    this.createdAt = data && data.createdAt;
+    this.updatedAt = data && data.updatedAt;
+    this.title = data && data.title;
   }
 }

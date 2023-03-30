@@ -5,6 +5,7 @@ import { FindBookByTitlePublisher } from './publishers/find-book-by-title-publis
 
 /**
  * Este modulo se encarga de configurar la cola de mensajeria
+ * y exportar los publicadores para que puedan ser usados en otros modulos
  *
  * @export
  * @class MessagingModule

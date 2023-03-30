@@ -1,8 +1,7 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import { Injectable } from '@nestjs/common';
 import { LoanDomainModel } from 'apps/gestion-de-prestamos/src/domain/models/loan.model';
-import { from, Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
 import { LoanRepository } from '../repositories/loan.repository.mongo';
 
 @Injectable()
@@ -13,8 +12,6 @@ export class LoanMongoService {
     id: string,
     update: Partial<LoanDomainModel>,
   ): Observable<LoanDomainModel> {
-    return from(this.loanModel.findByIdAndUpdate(id, update)).pipe(
-      switchMap(() => this.loanModel.findById(id)),
-    );
+    return this.loanRepository.update(id, update);
   }
 }

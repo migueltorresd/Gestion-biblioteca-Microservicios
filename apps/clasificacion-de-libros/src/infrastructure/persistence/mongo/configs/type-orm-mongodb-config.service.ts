@@ -18,6 +18,19 @@ export class TypeOrmMongoDBConfigService implements TypeOrmOptionsFactory {
   /**
    * Este metodo es el encargado de crear las opciones de conexion con la base de datos
    *
+   * @param {type} [type] // con esto se puede especificar el tipo de conexion
+   * @param {host} [host] // con esto se puede especificar el host de la base de datos
+   * @param {port} [port] // con esto se puede especificar el puerto de la base de datos
+   * @param {username} [username] // con esto se puede especificar el usuario de la base de datos
+   * @param {password} [password] // con esto se puede especificar la contraseña de la base de datos
+   * @param {database} [database] // con esto se puede especificar la base de datos
+   * @param {authSource} [authSource] // con esto se puede especificar la fuente de autenticacion
+   * @param {entities} [entities] // con esto se puede especificar las entidades de la base de datos
+   * @param {useUnifiedTopology} [useUnifiedTopology] // con esto se puede especificar si se usa el nuevo motor de mongodb
+   * @param {synchronize} [synchronize] // con esto se puede especificar si se sincroniza las entidades con la base de datos
+   * @param {logging} [logging] // con esto se puede especificar si se muestra el log de las consultas
+   * @param {useNewUrlParser} [useNewUrlParser] // con esto se puede especificar si se usa el nuevo motor de mongodb
+   * @param {autoLoadEntities} [autoLoadEntities] // con esto se puede especificar si se cargan las entidades automaticamente
    * @return {TypeOrmModuleOptions} // con esto se puede retornar las opciones de conexion
    * @memberof TypeOrmMongoDBConfigService
    */
@@ -29,13 +42,13 @@ export class TypeOrmMongoDBConfigService implements TypeOrmOptionsFactory {
       username: 'root',
       password: 'password',
       database: 'Sistema_de_Gestion_bibloteca',
-      authSource: 'admin', // con esto se puede autenticar en la base de datos
-      entities: [BookEntityMongo, AuthorEntityMongo], // con esto se pueden agregar las entidades de la base de datos a la conexion
-      useUnifiedTopology: true, // con esto podemos usar el nuevo motor de mongodb
-      synchronize: false, // con esto podemos sincronizar las entidades con la base de datos
-      logging: true, // con esto se puede ver el log de las consultas
-      useNewUrlParser: true, // con esto podemos usar el nuevo motor de mongodb
-      autoLoadEntities: true, // con esto podemos cargar las entidades automaticamente
+      authSource: 'admin',
+      entities: [BookEntityMongo, AuthorEntityMongo],
+      useUnifiedTopology: true,
+      synchronize: false,
+      logging: true,
+      useNewUrlParser: true,
+      autoLoadEntities: true,
     };
   }
 }
