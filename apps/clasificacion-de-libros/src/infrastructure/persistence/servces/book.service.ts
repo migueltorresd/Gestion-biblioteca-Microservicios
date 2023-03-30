@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { BookMongoService } from '../mongo/services/book-mongo.services';
+import { BookMongoService } from '../mongo/services/book-mongo.service';
 
 /**
  * Este servicio es el encargado de realizar las operaciones de la base de datos

@@ -8,7 +8,7 @@ import { IBookDomainInterface } from './interfaces/book-domain.interface';
  * @param {description} string // descripcion del libro
  * @param {publishedDate} Date // fecha de publicacion del libro
  * @param {createdAt} Date // fecha de creacion del libro
- * @param {updatedAt} Date // fecha de actualizacion del libro
+ * @param {updatedLoad} booleand // estado de prestamo
  * @export
  * @class BookDomainEntity
  * @implements {IBookDomainInterface} // implementa la interfaz IBookDomainInterface
@@ -19,7 +19,7 @@ export class BookDomainEntity implements IBookDomainInterface {
   description: string;
   publishedDate?: Date;
   createdAt: Date;
-  updatedAt: Date;
+  updatedLoad: boolean;
   title: string;
 
   /**
@@ -30,6 +30,7 @@ export class BookDomainEntity implements IBookDomainInterface {
    * @param {description} string // descripcion del libro
    * @param {publishedDate} Date // fecha de publicacion del libro
    * @param {createdAt} Date // fecha de creacion del libro
+   * @param {updatedLoad} boolean // estado de prestamo
    * @param {IBookDomainInterface} data // los datos de la entidad de libro
    * @memberof BookDomainEntity
    */
@@ -39,7 +40,7 @@ export class BookDomainEntity implements IBookDomainInterface {
     this.description = data && data.description;
     this.publishedDate = data && data.publishedDate;
     this.createdAt = data && data.createdAt;
-    this.updatedAt = data && data.updatedAt;
+    this.updatedLoad = data && data.updatedLoad;
     this.title = data && data.title;
   }
 }

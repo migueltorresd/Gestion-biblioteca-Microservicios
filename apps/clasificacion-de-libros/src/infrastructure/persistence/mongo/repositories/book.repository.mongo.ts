@@ -1,11 +1,19 @@
+import { NotFoundException } from '@nestjs/common';
 import { Injectable } from '@nestjs/common/decorators';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BookDomainEntity } from 'apps/clasificacion-de-libros/src/domain/entities/book-domain.entity';
-import { Observable, from, mapTo } from 'rxjs';
+import { Observable, from, mapTo, switchMap, map, catchError, tap } from 'rxjs';
 import { FindManyOptions, Repository } from 'typeorm';
 import { BookEntityMongo } from '../entities/book.entity';
 import { IBase } from './interfaces/base.interface';
 
+/**
+ * Este repositorio se encarga de la persistencia de los libros qen la base de datos
+ *
+ * @export
+ * @class BookRepository
+ * @implements {IBase<BookEntityMongo>}
+ */
 @Injectable()
 export class BookRepository implements IBase<BookEntityMongo> {
   constructor(
@@ -34,6 +42,25 @@ export class BookRepository implements IBase<BookEntityMongo> {
     return from(this.bookRepository.find(options));
   }
   deleteBook(id: string): Observable<void> {
-    return from(this.bookRepository.delete(id)).pipe(mapTo(undefined));
+    return from(this.bookRepository.delete(id)).pipe(undefined);
+  }
+
+  updateLoanStatus(
+    bookId: string,
+    updatedLoan: boolean,
+  ): Observable<BookEntityMongo> {
+    return from(this.bookRepository.findOne(bookId)).pipe(
+      switchMap((book) => {
+        if (!book) {
+          throw new NotFoundException(`Book with id ${bookId} not found`);
+        }
+        book.updatedLoan = updatedLoan;
+        return from(this.bookRepository.save(book));
+      }),
+      map((updatedBook) => updatedBook as BookEntityMongo),
+      catchError((error) => {
+        throw error;
+      }),
+    );
   }
 }

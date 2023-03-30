@@ -38,4 +38,9 @@ export interface IBoookDomainService<
    * @memberof IBoookDomainService
    */
   deleteBook(id: string): Observable<BookDomainEntity>;
+
+  updateLoanStatus(
+    bookId: string,
+    updates: Partial<Entity>,
+  ): Observable<Entity>;
 }

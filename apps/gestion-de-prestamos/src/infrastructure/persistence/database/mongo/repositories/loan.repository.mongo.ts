@@ -1,21 +1,30 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { LoanDomainModel } from 'apps/gestion-de-prestamos/src/domain/models/loan.model';
-import { Observable, from, switchMap } from 'rxjs';
-import { Repository } from 'typeorm';
+import { Model } from 'mongoose';
+import { Observable, from, switchMap, map } from 'rxjs';
 import { LoanSchemaMongo, loanDocument } from '../schemas/loan.schema';
 
 export class LoanRepository {
   constructor(
     @InjectModel(LoanSchemaMongo.name)
-    private loanRepository: Repository<loanDocument>,
+    private loanRepository: Model<LoanSchemaMongo>,
   ) {}
 
+  createloan(loanEntity: LoanDomainModel): Observable<LoanSchemaMongo> {
+    return from(this.loanRepository.create(loanEntity)).pipe(
+      switchMap((loan) => {
+        return this.loanRepository.findById(loan._id);
+      }),
+    );
+  }
   update(
     id: string,
-    update: Partial<LoanDomainModel>,
-  ): Observable<LoanDomainModel> {
-    return from(this.loanModel.updateOne({ _id: id }, update)).pipe(
-      switchMap(() => this.LoanDomainModel.findById(id)),
+    update: Partial<LoanSchemaMongo>,
+  ): Observable<LoanSchemaMongo> {
+    return from(this.loanRepository.updateOne({ _id: id }, update)).pipe(
+      map(() => {
+        return update as LoanSchemaMongo;
+      }),
     );
   }
 }

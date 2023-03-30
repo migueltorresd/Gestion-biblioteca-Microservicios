@@ -1,4 +1,10 @@
-import { IsDate, IsNotEmpty, IsObject, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsDate,
+  IsNotEmpty,
+  IsObject,
+  IsString,
+} from 'class-validator';
 
 /**
  * Este dto es el encargado de recibir los datos de un libro para crearlo
@@ -9,7 +15,7 @@ import { IsDate, IsNotEmpty, IsObject, IsString } from 'class-validator';
  * @param {description} string // la descripcion del libro
  * @param {publishedDate} Date // la fecha de publicacion del libro
  * @param {createdAt} Date // la fecha de creacion del libro
- * @param {updatedAt} Date // la fecha de actualizacion del libro *
+ * @param {updatedLoad} boolean // estado de prestamo
  * @export
  * @class createBookDto
  */
@@ -33,6 +39,6 @@ export class createBookDto {
   @IsDate()
   createdAt: Date;
 
-  @IsDate()
-  updatedAt: Date;
+  @IsBoolean()
+  updatedLoad: boolean;
 }

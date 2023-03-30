@@ -8,6 +8,10 @@ import { LoanRepository } from '../repositories/loan.repository.mongo';
 export class LoanMongoService {
   constructor(private readonly loanRepository: LoanRepository) {}
 
+  createLoan(loanEntity: LoanDomainModel): Observable<LoanDomainModel> {
+    return this.loanRepository.createloan(loanEntity);
+  }
+
   updateLoan(
     id: string,
     update: Partial<LoanDomainModel>,
