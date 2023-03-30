@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserDomainModel } from 'apps/gestion-de-prestamos/src/domain/models/user.model';
 import { MongooseConfigService } from './config/mongo.config';
 import { UserRepository } from './repositories/user.repository.mongo';
+import { loanSchema, LoanSchemaMongo } from './schemas/loan.schema';
 import { userSchema, UserSchemaMongo } from './schemas/user.schema';
 import { UserMongoService } from './services/user-mongo.service';
 
@@ -13,6 +14,7 @@ import { UserMongoService } from './services/user-mongo.service';
     }),
     MongooseModule.forFeature([
       { schema: userSchema, name: UserSchemaMongo.name },
+      { schema: loanSchema, name: LoanSchemaMongo.name },
     ]),
   ],
   controllers: [],

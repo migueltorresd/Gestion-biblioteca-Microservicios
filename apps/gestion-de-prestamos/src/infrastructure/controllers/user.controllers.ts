@@ -17,7 +17,7 @@ export class UserController {
   }
   @EventPattern('create-book')
   createBook(@Payload() data: any) {
-    console.log('----------funciona julian------');
+    console.log('----------funciona---------');
     console.log(data);
   }
 }

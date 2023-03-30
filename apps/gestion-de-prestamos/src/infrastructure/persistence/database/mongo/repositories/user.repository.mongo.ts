@@ -7,6 +7,12 @@ import { Repository } from 'typeorm';
 import { userDocument, UserSchemaMongo } from '../schemas/user.schema';
 import { IBase } from './interfaces/base.interface';
 
+/**
+ * Esta clase define el repositorio de la entidad usuario
+ * @export
+ * @class UserRepository
+ * @implements {IBase<UserSchemaMongo>}
+ */
 @Injectable()
 export class UserRepository implements IBase<UserSchemaMongo> {
   constructor(
