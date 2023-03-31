@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, HydratedDocument } from 'mongoose';
 import { UserSchemaMongo } from './user.schema';
 
-@Schema()
+@Schema({ collection: 'Loans', versionKey: false })
 export class LoanSchemaMongo {
   @Prop({ required: true })
   bookId: string;

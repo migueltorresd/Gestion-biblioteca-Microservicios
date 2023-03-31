@@ -16,6 +16,6 @@ export interface IBookDomainInterface {
   author: string;
   description: string;
   publishedDate?: Date;
-  createdAt: Date;
+  createdAt?: Date;
   updatedLoad: boolean;
 }

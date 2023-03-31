@@ -8,10 +8,11 @@ import {
 } from '@nestjs/common';
 import { Observable, switchMap, of, throwError } from 'rxjs';
 import { LoanSchemaMongo } from '../persistence/database/mongo/schemas/loan.schema';
-import { LoanMongoService } from '../persistence/database/mongo/services/loans.mongo.service';
+import { LoanService } from '../services/loan.service';
+
 @Controller('loans')
 export class LoansController {
-  constructor(private readonly loansService: LoanMongoService) {}
+  constructor(private readonly loansService: LoanService) {}
 
   @Post()
   createLoan(@Body() loan: LoanSchemaMongo): Observable<LoanSchemaMongo> {

@@ -5,16 +5,20 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CreateBookUseCase } from '../../application/create-book/create-book-case';
 import { DeleteBookUseCase } from '../../application/delete-book/delete-book';
 import { GetBookUseCase } from '../../application/get-book/get-book-case';
+import { UpdateLoanStatusUseCase } from '../../application/update-loan-status/update-loan-status.case';
 import { BookDomainEntity } from '../../domain/entities/book-domain.entity';
 import { createBookDto } from '../dto/create-book.dto';
 import { CreateBookPublisher } from '../messaging/publishers/create-book.publisher';
 import { FindBookByTitlePublisher } from '../messaging/publishers/find-book-by-title-publisher ';
+import { BookRepository } from '../persistence/mongo/repositories/book.repository.mongo';
+import { BookMongoService } from '../persistence/mongo/services/book-mongo.service';
 import { BookService } from '../persistence/servces/book.service';
 
 /**
@@ -60,7 +64,11 @@ export class ClassificationController {
     this.findBookByTitlePublisher.publish(title);
     return usecase.execute(title);
   }
-
+  @Put(':_id')
+  UpdateStatusLoan(@Param('_id') id: string, @Body() updateloan: boolean) {
+    const usecase = new UpdateLoanStatusUseCase(this.bookService);
+    return usecase.execute(id, updateloan);
+  }
   /**
    * Este metodo es el encargado de recibir la peticion de eliminar un libro por su id
    *

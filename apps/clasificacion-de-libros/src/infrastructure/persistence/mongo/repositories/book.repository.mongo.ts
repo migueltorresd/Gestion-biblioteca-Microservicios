@@ -46,13 +46,13 @@ export class BookRepository implements IBase<BookEntityMongo> {
   }
 
   updateLoanStatus(
-    bookId: string,
+    _id: string,
     updatedLoan: boolean,
   ): Observable<BookEntityMongo> {
-    return from(this.bookRepository.findOne(bookId)).pipe(
+    return from(this.bookRepository.findOne({ where: { _id: _id } })).pipe(
       switchMap((book) => {
         if (!book) {
-          throw new NotFoundException(`Book with id ${bookId} not found`);
+          throw new NotFoundException(`Book with id ${_id} not found`);
         }
         book.updatedLoan = updatedLoan;
         return from(this.bookRepository.save(book));

@@ -35,5 +35,5 @@ export class BookEntityMongo extends BookDomainEntity {
   createdAt: Date;
 
   @Column()
-  updatedLoan: boolean;
+  updatedLoan?: boolean;
 }

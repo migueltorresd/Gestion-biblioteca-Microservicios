@@ -1,4 +1,4 @@
-import { ILoanDomainInterface } from './interfaces/loand-domain.interface';
+import { ILoanDomainInterface } from './interfaces/loan-domain.interface';
 
 export class LoanDomainModel implements ILoanDomainInterface {
   bookId: string;

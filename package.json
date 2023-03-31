@@ -37,7 +37,9 @@
     "mongoose": "^7.0.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
-    "typeorm": "^0.3.12"
+    "typeorm": "^0.3.12",
+    "jest": "^29.3.1",
+    "ts-jest": "29.0.3"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
@@ -78,6 +80,14 @@
     ],
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/",
+      "/dist/",
+      ".module.ts",
+      "main.ts",
+      "index.ts"
+    ],
     "roots": [
       "<rootDir>/apps/"
     ]

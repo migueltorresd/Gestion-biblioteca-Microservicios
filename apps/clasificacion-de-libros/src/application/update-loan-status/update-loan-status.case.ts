@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { from, map, Observable } from 'rxjs';
 import { BookDomainEntity } from '../../domain/entities/book-domain.entity';
-import { BookRepository } from '../../infrastructure/persistence/mongo/repositories/book.repository.mongo';
+import { IBoookDomainService } from '../../domain/services/book.service';
 
 @Injectable()
 export class UpdateLoanStatusUseCase {
-  constructor(private readonly bookRepository: BookRepository) {}
+  constructor(private readonly bookService: IBoookDomainService) {}
 
-  execute(bookId: string, updatedLoan: boolean): Observable<BookDomainEntity> {
-    return from(this.bookRepository.UpdateStatus(bookId, updatedLoan)).pipe(
+  execute(_id: string, updatedLoan: boolean): Observable<BookDomainEntity> {
+    return from(this.bookService.updateLoanStatus(_id, updatedLoan)).pipe(
       map((updatedBook) => updatedBook as BookDomainEntity),
     );
   }
