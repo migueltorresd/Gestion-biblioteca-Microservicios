@@ -29,14 +29,12 @@ export class UserDomainModel implements IUserDomainInterface {
    * @memberof UserDomainModel
    */
   constructor(data: IUserDomainInterface) {
-    if (data) {
-      this.name = data.name;
-      this.email = data.email;
-      this.doument = data.doument;
-      this.phone = data.phone;
-      this.user = data.user;
-      this.password = data.password;
-      this.lender = data.lender;
-    }
+    this.name = data && data.name;
+    this.email = data && data.email;
+    this.doument = data && data.doument;
+    this.phone = data && data.phone;
+    this.user = data && data.user;
+    this.password = data && data.password;
+    this.lender = data && data.lender;
   }
 }

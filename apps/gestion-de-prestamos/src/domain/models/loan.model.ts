@@ -7,11 +7,9 @@ export class LoanDomainModel implements ILoanDomainInterface {
   returnDate: Date;
 
   constructor(data: ILoanDomainInterface) {
-    if (data) {
-      this.bookId = data.bookId;
-      this.userId = data.userId;
-      this.loanDate = data.loanDate;
-      this.returnDate = data.returnDate;
-    }
+    this.bookId = data && data.bookId;
+    this.userId = data && data.userId;
+    this.loanDate = data && data.loanDate;
+    this.returnDate = data && data.returnDate;
   }
 }
