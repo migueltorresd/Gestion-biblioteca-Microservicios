@@ -19,7 +19,7 @@ export class BookDomainEntity implements IBookDomainInterface {
   description: string;
   publishedDate?: Date;
   createdAt?: Date;
-  updatedLoad: boolean;
+  updatedLoad?: boolean;
   title: string;
 
   /**

@@ -65,9 +65,13 @@ export class ClassificationController {
     return usecase.execute(title);
   }
   @Put(':_id')
-  UpdateStatusLoan(@Param('_id') id: string, @Body() updateloan: boolean) {
+  UpdateStatusLoan(
+    @Param('_id') id: string,
+    @Body() updatedLoad: { updatedLoad: boolean },
+  ) {
     const usecase = new UpdateLoanStatusUseCase(this.bookService);
-    return usecase.execute(id, updateloan);
+    console.log(updatedLoad);
+    return usecase.execute(id, updatedLoad.updatedLoad);
   }
   /**
    * Este metodo es el encargado de recibir la peticion de eliminar un libro por su id

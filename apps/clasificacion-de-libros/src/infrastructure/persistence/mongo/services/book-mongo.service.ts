@@ -55,11 +55,11 @@ export class BookMongoService implements IBoookDomainService<BookEntityMongo> {
 
   updateLoanStatus(
     bookId: string,
-    updatedLoan: boolean,
+    updatedLoad: boolean,
   ): Observable<BookEntityMongo> {
     const updatePromise = this.bookRepository.updateLoanStatus(
       bookId,
-      updatedLoan,
+      updatedLoad,
     );
     return from(updatePromise).pipe(
       map((updatedBook) => updatedBook as BookEntityMongo),

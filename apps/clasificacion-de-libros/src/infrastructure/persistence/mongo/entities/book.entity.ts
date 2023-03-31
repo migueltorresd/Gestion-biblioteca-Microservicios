@@ -14,9 +14,11 @@ import { AuthorEntityMongo } from './autor.entity';
  * @class BookEntityMongo
  * @extends {BookDomainEntity}
  */
-@Entity()
+@Entity('book')
 export class BookEntityMongo extends BookDomainEntity {
-  @ObjectIdColumn()
+  @ObjectIdColumn({
+    name: '_id',
+  })
   _id: string;
 
   @Column()
@@ -35,5 +37,5 @@ export class BookEntityMongo extends BookDomainEntity {
   createdAt: Date;
 
   @Column()
-  updatedLoan?: boolean;
+  updatedLoad?: boolean;
 }
