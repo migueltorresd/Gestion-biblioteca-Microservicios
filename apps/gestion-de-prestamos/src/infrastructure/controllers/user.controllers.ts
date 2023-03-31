@@ -15,9 +15,4 @@ export class UserController {
     const useCase = new CreateUserUseCase(this.userService);
     return useCase.execute(userEntity);
   }
-  @EventPattern('create-book')
-  createBook(@Payload() data: any) {
-    console.log('----------funciona---------');
-    console.log(data);
-  }
 }

@@ -1,21 +1,10 @@
 import { NotFoundException } from '@nestjs/common';
 import { Injectable } from '@nestjs/common/decorators';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BookDomainEntity } from 'apps/clasificacion-de-libros/src/domain/entities/book-domain.entity';
-import {
-  Observable,
-  from,
-  mapTo,
-  switchMap,
-  map,
-  catchError,
-  tap,
-  mergeMap,
-} from 'rxjs';
-import { FindManyOptions, FindOneOptions, ObjectID, Repository } from 'typeorm';
+import { Observable, from, switchMap, map, catchError } from 'rxjs';
+import { FindManyOptions, Repository } from 'typeorm';
 import { BookEntityMongo } from '../entities/book.entity';
 import { IBase } from './interfaces/base.interface';
-import mongoose from 'mongoose';
 
 /**
  * Este repositorio se encarga de la persistencia de los libros qen la base de datos

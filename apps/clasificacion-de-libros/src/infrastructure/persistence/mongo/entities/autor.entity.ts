@@ -1,4 +1,4 @@
-import { AuthorDomainEntity } from 'apps/clasificacion-de-libros/src/domain/entities/author-domain.entity';
+import { AuthorDomainEntity } from '../../../../domain/entities';
 import { Column, Entity, ObjectIdColumn } from 'typeorm';
 
 /**

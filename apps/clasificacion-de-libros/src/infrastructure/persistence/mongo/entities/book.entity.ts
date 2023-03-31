@@ -1,6 +1,6 @@
-import { BookDomainEntity } from 'apps/clasificacion-de-libros/src/domain/entities/book-domain.entity';
 import { Column, Entity, ObjectIdColumn } from 'typeorm';
 import { AuthorEntityMongo } from './autor.entity';
+import { BookDomainEntity } from '../../../../../src/domain/entities/book-domain.entity';
 /**
  * Es la entidad de la base de datos de mongo para el libro de la biblioteca
  *
