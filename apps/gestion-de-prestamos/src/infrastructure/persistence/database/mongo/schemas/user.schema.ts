@@ -1,30 +1,44 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { UserDomainModel } from 'apps/gestion-de-prestamos/src/domain/models/user.model';
+import { UserDomainModel } from '../../../../../domain/models/user.model';
 import { HydratedDocument } from 'mongoose';
+/**
+ * Esta clase define el esquema de la entidad usuario en mongo
+ * para eso extiende de la entidad usuario
+ * @Param {string} name// nombre del usuario
+ * @Param {string} email// correo del usuario
+ * @Param {string} doument// documento del usuario
+ * @Param {string} phone// telefono del usuario
+ * @Param {string} user// usuario del usuario
+ * @Param {string} password// contraseña del usuario
+ * @Param {string} lender// prestamo del usuario
+ * @export
+ * @class UserSchemaMongo
+ * @extends {UserDomainModel}
+ */
 @Schema({
   collection: 'users',
   versionKey: false,
 })
 export class UserSchemaMongo extends UserDomainModel {
-  @Prop()
+  @Prop({ required: true })
   name: string;
 
-  @Prop()
+  @Prop({ required: true })
   email: string;
 
-  @Prop()
+  @Prop({ required: true })
   doument: string;
 
-  @Prop()
+  @Prop({ required: true })
   phone: string;
 
-  @Prop()
+  @Prop({ required: true })
   user: string;
 
-  @Prop()
+  @Prop({ required: true })
   password: string;
 
-  @Prop()
+  @Prop({ required: true })
   lender: string;
 }
 export const userSchema = SchemaFactory.createForClass(UserSchemaMongo);

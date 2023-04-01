@@ -17,8 +17,6 @@ import { BookDomainEntity } from '../../domain/entities/book-domain.entity';
 import { createBookDto } from '../dto/create-book.dto';
 import { CreateBookPublisher } from '../messaging/publishers/create-book.publisher';
 import { FindBookByTitlePublisher } from '../messaging/publishers/find-book-by-title-publisher ';
-import { BookRepository } from '../persistence/mongo/repositories/book.repository.mongo';
-import { BookMongoService } from '../persistence/mongo/services/book-mongo.service';
 import { BookService } from '../persistence/servces/book.service';
 
 /**
