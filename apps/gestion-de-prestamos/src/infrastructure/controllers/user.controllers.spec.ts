@@ -6,21 +6,23 @@ import { UserDomainModel } from '../../domain/models/user.model';
 import { CreateUserDto } from '../dto/user.dto';
 import { of } from 'rxjs';
 import { UserController } from './user.controllers';
+import { UserRepository } from '../persistence/database/mongo/repositories/user.repository.mongo';
 
 describe('UserController', () => {
   let controller: UserController;
   let userService: UserService;
+  let userRepository: UserRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
-      providers: [UserService, CreateUserUseCase],
+      providers: [UserService, CreateUserUseCase, UserRepository],
     }).compile();
 
     controller = module.get<UserController>(UserController);
     userService = module.get<UserService>(UserService);
+    userRepository = module.get<UserRepository>(UserRepository);
   });
-
   describe('createUser', () => {
     it('should create a user and return it as an Observable', () => {
       // Arrange

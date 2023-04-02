@@ -27,7 +27,7 @@ describe('BookDomainEntity', () => {
     });
 
     test('should create a new instance of BookDomainEntity with default values when no data is provided', () => {
-      const book = new BookDomainEntity(undefined);
+      const book = new BookDomainEntity();
 
       expect(book).toBeDefined();
       expect(book._id).toBeUndefined();

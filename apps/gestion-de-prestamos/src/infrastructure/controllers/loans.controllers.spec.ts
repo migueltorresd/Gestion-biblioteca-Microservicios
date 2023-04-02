@@ -1,18 +1,20 @@
 import { getModelToken } from '@nestjs/mongoose';
-import { Test } from '@nestjs/testing';
+import { Test, TestingModule } from '@nestjs/testing';
 import { LoanDomainModel } from '../../domain/models';
 import { LoanService } from '../services/loan.service';
 import { LoansController } from './loans.controllers';
 import { of } from 'rxjs';
 import { MongoModule } from '../persistence/database/mongo/mongo.module';
+import { NewLoanPublisher } from '../messaging/publishers/new-loan.publisher';
 
 describe('LoansController', () => {
   let loansController: LoansController;
   let loanService: LoanService;
+  let newLoanPublisher: NewLoanPublisher;
 
   beforeEach(async () => {
     // Arrange
-    const moduleRef = await Test.createTestingModule({
+    const app: TestingModule = await Test.createTestingModule({
       controllers: [LoansController],
       imports: [MongoModule], // Agregar el módulo que contiene el LoanRepository a la lista de imports
       providers: [
@@ -21,21 +23,27 @@ describe('LoansController', () => {
           provide: getModelToken('Loan'),
           useValue: {},
         },
+        {
+          provide: NewLoanPublisher,
+          useValue: { publish: jest.fn() },
+        },
       ],
     }).compile();
 
-    loansController = moduleRef.get<LoansController>(LoansController);
-    loanService = moduleRef.get<LoanService>(LoanService);
+    newLoanPublisher = app.get<NewLoanPublisher>(NewLoanPublisher);
+    loanService = app.get<LoanService>(LoanService);
+  });
+  it('should be defined', () => {
+    expect(loansController).toBeDefined();
   });
 
   describe('updateLoan', () => {
-    it('should return the updated loan', async () => {
+    it('should return the updated loan', (done) => {
       // Arrange
-      const loanId = 'loanId';
-      const update = { loanDate: new Date() };
       const updatedLoan = new LoanDomainModel({
         bookId: 'bookId',
         userId: 'userId',
+        title: 'title',
         loanDate: new Date(),
         returnDate: new Date(),
       });
@@ -43,7 +51,7 @@ describe('LoansController', () => {
       loanService.updateLoan = jest.fn().mockResolvedValue(updatedLoan);
 
       // Act
-      const result = await loansController.updateLoan('loanId', {
+      const result = loansController.updateLoan('loanId', {
         loanDate: new Date(),
       });
 
