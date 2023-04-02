@@ -16,7 +16,6 @@ import { UpdateLoanStatusUseCase } from '../../application/update-loan-status/up
 import { BookDomainEntity } from '../../domain/entities/book-domain.entity';
 import { createBookDto } from '../dto/create-book.dto';
 import { CreateBookPublisher } from '../messaging/publishers/create-book.publisher';
-import { FindBookByTitlePublisher } from '../messaging/publishers/find-book-by-title-publisher ';
 import { BookService } from '../persistence/servces/book.service';
 import { EventPattern, Payload } from '@nestjs/microservices';
 
@@ -31,7 +30,6 @@ export class ClassificationController {
   constructor(
     private readonly bookService: BookService,
     private readonly createBookPublisher: CreateBookPublisher,
-    private readonly findBookByTitlePublisher: FindBookByTitlePublisher,
   ) {}
 
   /**
@@ -60,7 +58,6 @@ export class ClassificationController {
   @Get(':title')
   findBookByTitle(@Param('title') title: string) {
     const usecase = new GetBookUseCase(this.bookService);
-    this.findBookByTitlePublisher.publish(title);
     return usecase.execute(title);
   }
   @Put(':_id')

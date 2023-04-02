@@ -20,6 +20,7 @@ export class LoansController {
     private readonly newLoanPublisher: NewLoanPublisher,
   ) {}
 
+  @UseGuards(DateGuard)
   @Post()
   createLoan(@Body() loan: LoanSchemaMongo): Observable<LoanSchemaMongo> {
     this.newLoanPublisher.publish(loan);
