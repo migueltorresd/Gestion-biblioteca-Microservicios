@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { join } from 'path';
-import { IntrastructureModule } from './infrastructure/infrastructure.Module';
+import { IntrastructureModule } from './infrastructure/infrastructure.module';
 
 @Module({
   imports: [

@@ -1,5 +1,5 @@
 import { InjectModel } from '@nestjs/mongoose';
-import { LoanDomainModel } from 'apps/gestion-de-prestamos/src/domain/models/loan.model';
+import { LoanDomainModel } from '../../../../../domain/models/loan.model';
 import { Model } from 'mongoose';
 import { Observable, from, switchMap, map } from 'rxjs';
 import { LoanSchemaMongo, loanDocument } from '../schemas/loan.schema';

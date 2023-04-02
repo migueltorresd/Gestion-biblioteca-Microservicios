@@ -6,7 +6,7 @@ import { BookDomainEntity } from '../entities/book-domain.entity';
  * que se encargan de crear, buscar y eliminar un libro
  *
  * @export
- * @interface IBoookDomainService
+ * @interface IBoookDomainService // nombre de la interface
  * @template Entity
  */
 export interface IBoookDomainService<
@@ -15,7 +15,7 @@ export interface IBoookDomainService<
   /**
    * este metodo se encarga de crear un libro
    *
-   * @param {BookDomainEntity} bookEntity
+   * @param {BookDomainEntity} bookEntity // recibe un objeto de tipo BookDomainEntity
    * @return {Observable<BookDomainEntity>} // retorna un observable de tipo BookDomainEntity
    * @memberof IBoookDomainService
    */
@@ -24,7 +24,7 @@ export interface IBoookDomainService<
   /**
    *  este metodo se encarga de buscar un libro por su id
    *
-   * @param {string} query
+   * @param {string} query // recibe un string que representa el id del libro
    * @return {Observable<BookDomainEntity[]>} // retorna un observable de tipo BookDomainEntity[]
    * @memberof IBoookDomainService
    */
@@ -33,11 +33,19 @@ export interface IBoookDomainService<
   /**
    * este metodo se encarga de eliminar un libro
    *
-   * @param {BookDomainEntity} bookEntity
-   * @return {Observable<BookDomainEntity>}
+   * @param {BookDomainEntity} bookEntity // recibe un objeto de tipo BookDomainEntity
+   * @return {Observable<BookDomainEntity>} // retorna un observable de tipo BookDomainEntity
    * @memberof IBoookDomainService
    */
   deleteBook(id: string): Observable<BookDomainEntity>;
 
+  /**
+   * Este metodo se encarga de actualizar el estado de un libro
+   *
+   * @param {string} bookId // recibe un string que representa el id del libro
+   * @param {boolean} updates // recibe un booleano que representa el estado del libro
+   * @return {Observable<Entity>} // retorna un observable de tipo Entity
+   * @memberof IBoookDomainService
+   */
   updateLoanStatus(bookId: string, updates: boolean): Observable<Entity>;
 }
