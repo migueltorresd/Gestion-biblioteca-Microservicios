@@ -85,7 +85,9 @@
       "/dist/",
       ".module.ts",
       "main.ts",
-      "index.ts"
+      "index.ts",
+      "type-orm-mongodb-config.service.ts",
+      "config.ts"
     ],
     "roots": [
       "<rootDir>/apps/"

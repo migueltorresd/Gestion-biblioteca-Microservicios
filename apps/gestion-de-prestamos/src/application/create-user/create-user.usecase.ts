@@ -14,6 +14,13 @@ export class CreateUserUseCase {
     private readonly userService: IUserDomainInterface<UserDomainModel>,
   ) {}
 
+  /**
+   * Este metodo es el encargado de ejecutar el caso de uso de crear un usuario
+   *
+   * @param {UserDomainModel} userEntity // recibe un UserDomainModel
+   * @return {{Observable<UserDomainModel>} // retorna un observable de un UserDomainModel
+   * @memberof CreateUserUseCase
+   */
   execute(userEntity: UserDomainModel): Observable<UserDomainModel> {
     return this.userService.createUser(userEntity);
   }

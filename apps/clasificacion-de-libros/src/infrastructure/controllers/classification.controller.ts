@@ -18,6 +18,7 @@ import { createBookDto } from '../dto/create-book.dto';
 import { CreateBookPublisher } from '../messaging/publishers/create-book.publisher';
 import { FindBookByTitlePublisher } from '../messaging/publishers/find-book-by-title-publisher ';
 import { BookService } from '../persistence/servces/book.service';
+import { EventPattern, Payload } from '@nestjs/microservices';
 
 /**
  * Este controlador es el encargado de recibir las peticiones de crear, buscar y eliminar un libro
@@ -82,5 +83,14 @@ export class ClassificationController {
   deleteBook(@Param('id') id: string) {
     const usecase = new DeleteBookUseCase(this.bookService);
     return usecase.execute(id);
+  }
+
+  @EventPattern('new-loan')
+  newloan(@Payload() data: string) {
+    const newDate = JSON.parse(data);
+    const usecase = new UpdateLoanStatusUseCase(this.bookService);
+    return usecase.execute(newDate.title, true);
+    console.log('----------NUEVO PRESTAMO---------');
+    console.log(data);
   }
 }

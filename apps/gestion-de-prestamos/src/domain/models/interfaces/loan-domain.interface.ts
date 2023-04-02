@@ -2,6 +2,7 @@
  * Esta inteface define la estructura de la entidad prestamo
  * @param {string} bookId // el id del libro
  * @param {string} userId // el id del usuario
+ * @param {string} title // el titulo del libro
  * @param {Date} loanDate // la fecha de prestamo
  * @param {Date} returnDate // la fecha de devolucion
  * @export
@@ -9,6 +10,7 @@
  */
 export interface ILoanDomainInterface {
   bookId: string;
+  title?: string;
   userId: string;
   loanDate: Date;
   returnDate: Date;

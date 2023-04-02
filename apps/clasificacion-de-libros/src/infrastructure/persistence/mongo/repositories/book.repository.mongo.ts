@@ -48,6 +48,7 @@ export class BookRepository implements IBase<BookEntityMongo> {
     _id: string,
     updatedLoad: boolean,
   ): Observable<BookEntityMongo> {
+    console.log(_id, updatedLoad);
     return from(this.bookRepository.findOne({ where: { title: _id } })).pipe(
       switchMap((book: BookEntityMongo) => {
         if (!book) {

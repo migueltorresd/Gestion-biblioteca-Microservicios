@@ -9,13 +9,18 @@ import {
 import { Observable, switchMap, of, throwError } from 'rxjs';
 import { LoanSchemaMongo } from '../persistence/database/mongo/schemas/loan.schema';
 import { LoanService } from '../services/loan.service';
+import { NewLoanPublisher } from '../messaging/publishers/new-loan.publisher';
 
 @Controller('loans')
 export class LoansController {
-  constructor(private readonly loansService: LoanService) {}
+  constructor(
+    private readonly loansService: LoanService,
+    private readonly newLoanPublisher: NewLoanPublisher,
+  ) {}
 
   @Post()
   createLoan(@Body() loan: LoanSchemaMongo): Observable<LoanSchemaMongo> {
+    this.newLoanPublisher.publish(loan);
     return this.loansService.createLoan(loan);
   }
 

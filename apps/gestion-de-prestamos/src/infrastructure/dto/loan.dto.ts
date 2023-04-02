@@ -7,6 +7,8 @@ export class UpdateLoanDto {
   @IsString()
   userId: string;
 
+  title?: string;
+
   @IsString()
   loanDate: Date;
 

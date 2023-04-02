@@ -11,6 +11,9 @@ export class LoanSchemaMongo {
   userId: string;
 
   @Prop({ required: true })
+  title?: string;
+
+  @Prop({ required: true })
   loanDate: Date;
 
   @Prop({ required: true })
