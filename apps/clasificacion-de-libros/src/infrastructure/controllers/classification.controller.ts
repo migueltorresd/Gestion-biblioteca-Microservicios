@@ -9,7 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { CreateBookUseCase } from '../../application/create-book/create-book-case';
+import { CreateBookUseCase } from '../../application/add-book/create-book-case';
 import { DeleteBookUseCase } from '../../application/delete-book/delete-book';
 import { GetBookUseCase } from '../../application/get-book/get-book-case';
 import { UpdateLoanStatusUseCase } from '../../application/update-loan-status/update-loan-status.case';

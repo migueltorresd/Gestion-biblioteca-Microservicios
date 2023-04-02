@@ -1,72 +1,106 @@
-import { Test } from '@nestjs/testing';
-import { BookRepository } from './book.repository.mongo';
+import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { of } from 'rxjs';
-import { BookEntityMongo } from '../entities/book.entity';
-import { MongooseModule } from '@nestjs/mongoose';
-
-import { BehaviorSubject } from 'rxjs';
+import { BookRepository } from './book.repository.mongo';
+import { BookEntityMongo } from '..';
 
 describe('BookRepository', () => {
+  let bookMongoRepository: Repository<BookEntityMongo>;
   let bookRepository: BookRepository;
-  let bookEntityMongo: BookEntityMongo;
+  let findSpy: jest.SpyInstance;
+  let deleteSpy: jest.SpyInstance;
+  let saveSpy: jest.SpyInstance;
+  const expectedBook: BookEntityMongo[] = [
+    {
+      _id: '1',
+      title: 'señor de los anillos',
+      author: 'Tolkien',
+      description: 'descripion',
+      publishedDate: new Date(),
+      createdAt: new Date(),
+      updatedLoad: false,
+    },
+  ];
 
   beforeEach(async () => {
-    const moduleRef = await Test.createTestingModule({
-      providers: [BookRepository, BookEntityMongo],
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        BookRepository,
+        {
+          provide: getRepositoryToken(BookEntityMongo),
+          useClass: Repository,
+        },
+      ],
     }).compile();
 
-    bookRepository = moduleRef.get<BookRepository>(BookRepository);
-    bookEntityMongo = moduleRef.get<BookEntityMongo>(BookEntityMongo);
+    bookMongoRepository = module.get<Repository<BookEntityMongo>>(
+      getRepositoryToken(BookEntityMongo),
+    );
+    bookRepository = module.get<BookRepository>(BookRepository);
   });
 
   describe('create', () => {
-    it('debería crear un nuevo libro', async () => {
-      // Arrange
-      const expectedBook: BookEntityMongo = new BookEntityMongo({
-        _id: '1',
-        title: 'señor de los anillos',
-        author: 'Tolkien',
-        description: 'descripion',
-        publishedDate: new Date(),
+    let expectedBook: BookEntityMongo;
+    let saveSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      expectedBook = new BookEntityMongo({
+        _id: 'id',
+        title: 'title',
+        author: 'author',
+        description: 'description',
         createdAt: new Date(),
+        publishedDate: new Date(),
         updatedLoad: false,
       });
-      const subject = new BehaviorSubject(expectedBook);
-      jest
-        .spyOn(bookRepository, 'save')
-        .mockReturnValueOnce(subject.asObservable());
 
+      saveSpy = jest
+        .spyOn(bookMongoRepository, 'save')
+        .mockReturnValue(Promise.resolve(expectedBook));
+    });
+
+    it('should create a new book', async () => {
       // Act
       const result = await bookRepository.create(expectedBook).toPromise();
 
       // Assert
       expect(result).toEqual(expectedBook);
+      expect(saveSpy).toHaveBeenCalledWith(expectedBook);
     });
   });
 
   describe('findBookByTitle', () => {
-    it('debería encontrar un libro por su título', async () => {
+    it('should find a book by title', async () => {
       // Arrange
       const title = 'señor de los anillos';
-      const expectedBook: BookEntityMongo = new BookEntityMongo({
-        _id: '1',
-        title: 'señor de los anillos',
-        author: 'Tolkien',
-        description: 'descripion',
-        publishedDate: new Date(),
-        createdAt: new Date(),
-        updatedLoad: false,
-      });
-
-      jest
-        .spyOn(bookRepository, 'findBookByTitle')
-        .mockReturnValueOnce(of([expectedBook]));
+      findSpy = jest
+        .spyOn(bookMongoRepository, 'find')
+        .mockResolvedValue(expectedBook);
 
       // Act
       const result = await bookRepository.findBookByTitle(title).toPromise();
 
       // Assert
-      expect(result).toEqual([expectedBook]);
+      expect(findSpy).toHaveBeenCalledWith({ where: { title } });
+      expect(result).toEqual(expectedBook);
+    });
+  });
+
+  describe('deleteBook', () => {
+    it('should delete a book by id', async () => {
+      // Arrange
+      const id = '1';
+      deleteSpy = jest
+        .spyOn(bookMongoRepository, 'delete')
+        .mockResolvedValue(undefined);
+
+      // Act
+      const result = await bookRepository.deleteBook(id).toPromise();
+
+      // Assert
+      expect(deleteSpy).toHaveBeenCalledWith(id);
+      expect(result).toBeUndefined();
     });
   });
 });

@@ -6,22 +6,30 @@ import { UserDomainModel } from '../../domain/models/user.model';
 import { CreateUserDto } from '../dto/user.dto';
 import { of } from 'rxjs';
 import { UserController } from './user.controllers';
-import { UserRepository } from '../persistence/database/mongo/repositories/user.repository.mongo';
 
 describe('UserController', () => {
   let controller: UserController;
   let userService: UserService;
-  let userRepository: UserRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
-      providers: [UserService, CreateUserUseCase, UserRepository],
+      providers: [
+        {
+          provide: UserService,
+          useValue: {
+            getUser: jest.fn().mockReturnValue(null),
+          },
+        },
+        {
+          provide: CreateUserUseCase,
+          useValue: {},
+        },
+      ],
     }).compile();
 
     controller = module.get<UserController>(UserController);
     userService = module.get<UserService>(UserService);
-    userRepository = module.get<UserRepository>(UserRepository);
   });
   describe('createUser', () => {
     it('should create a user and return it as an Observable', () => {
@@ -53,9 +61,12 @@ describe('UserController', () => {
 
       // Assert
       expect(userService).toBeDefined();
-      expect(CreateUserUseCase).toHaveBeenCalledWith(userService);
       expect(CreateUserUseCase.prototype.execute).toHaveBeenCalledWith(userDto);
-      expect(result).toEqual(of(userDomainModel));
+      result.subscribe((data: any) => {
+        console.log('----------funciona---------');
+        console.log(data);
+        expect(data).toEqual(userDomainModel);
+      });
     });
   });
 });

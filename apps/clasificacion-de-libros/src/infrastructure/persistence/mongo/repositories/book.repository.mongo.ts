@@ -1,7 +1,7 @@
 import { NotFoundException } from '@nestjs/common';
 import { Injectable } from '@nestjs/common/decorators';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Observable, from, switchMap, map, catchError } from 'rxjs';
+import { Observable, from, switchMap, map, catchError, mapTo } from 'rxjs';
 import { FindManyOptions, Repository } from 'typeorm';
 import { BookEntityMongo } from '../entities/book.entity';
 import { IBase } from './interfaces/base.interface';
@@ -41,7 +41,7 @@ export class BookRepository implements IBase<BookEntityMongo> {
     return from(this.bookRepository.find(options));
   }
   deleteBook(id: string): Observable<void> {
-    return from(this.bookRepository.delete(id)).pipe(undefined);
+    return from(this.bookRepository.delete(id)).pipe(mapTo(undefined));
   }
 
   updateLoanStatus(

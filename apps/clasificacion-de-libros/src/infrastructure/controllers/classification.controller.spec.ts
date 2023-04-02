@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ClassificationController } from './classification.controller';
 import { BookService } from '../persistence/servces/book.service';
-import { CreateBookUseCase } from '../../application/create-book/create-book-case';
+import { CreateBookUseCase } from '../../application/add-book/create-book-case';
 import { DeleteBookUseCase } from '../../application/delete-book/delete-book';
 import { GetBookUseCase } from '../../application/get-book/get-book-case';
 import { UpdateLoanStatusUseCase } from '../../application/update-loan-status/update-loan-status.case';
@@ -10,7 +10,7 @@ import { BookDomainEntity } from '../../domain/entities/book-domain.entity';
 import { createBookDto } from '../dto/create-book.dto';
 import { ModuleResolutionKind } from 'typescript';
 import { BookRepository } from '../persistence';
-import { CreateBookPublisher, FindBookByTitlePublisher } from '../messaging';
+import { CreateBookPublisher } from '../messaging';
 
 describe('ClassificationController', () => {
   let classificationController: ClassificationController;
@@ -20,7 +20,6 @@ describe('ClassificationController', () => {
   let getBookUseCase: GetBookUseCase;
   let updateLoanStatusUseCase: UpdateLoanStatusUseCase;
   let createBookPublisher: CreateBookPublisher;
-  let findBookByTitlePublisher: FindBookByTitlePublisher;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
@@ -50,10 +49,6 @@ describe('ClassificationController', () => {
           provide: CreateBookPublisher,
           useValue: { publish: jest.fn() },
         },
-        {
-          provide: FindBookByTitlePublisher,
-          useValue: { publish: jest.fn() },
-        },
       ],
     }).compile();
     bookService = app.get<BookService>(BookService);
@@ -67,9 +62,6 @@ describe('ClassificationController', () => {
       ClassificationController,
     );
     createBookPublisher = app.get<CreateBookPublisher>(CreateBookPublisher);
-    findBookByTitlePublisher = app.get<FindBookByTitlePublisher>(
-      FindBookByTitlePublisher,
-    );
   });
   // se esta llamando y esta bien definido el controlador
   it('should be defined', () => {
