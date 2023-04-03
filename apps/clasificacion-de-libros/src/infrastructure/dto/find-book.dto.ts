@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
 
 /**
@@ -8,8 +9,17 @@ import { IsString } from 'class-validator';
  * @class BookDto
  */
 export class BookDto {
+  @ApiProperty({
+    example: 'cien años de soledad',
+    description: 'Nombre del libro',
+  })
   @IsString()
   title: string;
+
+  @ApiProperty({
+    example: 'Gabriel',
+    description: 'Nombre del autor',
+  })
   @IsString()
   author: string;
 }

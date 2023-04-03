@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
 
 /**
@@ -8,6 +9,10 @@ import { IsString } from 'class-validator';
  * @class DeleteBookDto
  */
 export class DeleteBookDto {
+  @ApiProperty({
+    example: '5f9f1c9c0b9b9c0b9c0b9c0b',
+    description: 'se genera automaticamente id',
+  })
   @IsString()
   _id: string;
 }

@@ -1,79 +1,80 @@
-import { getModelToken } from '@nestjs/mongoose';
-import { Test, TestingModule } from '@nestjs/testing';
-import { LoanDomainModel } from '../../domain/models';
+import { TestingModule, Test } from '@nestjs/testing';
+import { Observable } from 'rxjs';
+import { NewLoanPublisher } from '../messaging/publishers/new-loan.publisher';
+import { LoanSchemaMongo } from '../persistence/database/mongo/schemas/loan.schema';
 import { LoanService } from '../services/loan.service';
 import { LoansController } from './loans.controllers';
-import { of } from 'rxjs';
-import { MongoModule } from '../persistence/database/mongo/mongo.module';
-import { NewLoanPublisher } from '../messaging/publishers/new-loan.publisher';
 
 describe('LoansController', () => {
-  let loansController: LoansController;
-  let loanService: LoanService;
+  let controller: LoansController;
+  let loansService: LoanService;
   let newLoanPublisher: NewLoanPublisher;
 
   beforeEach(async () => {
-    // Arrange
-    const app: TestingModule = await Test.createTestingModule({
+    const module: TestingModule = await Test.createTestingModule({
       controllers: [LoansController],
-      imports: [MongoModule], // Agregar el módulo que contiene el LoanRepository a la lista de imports
       providers: [
-        LoanService,
         {
-          provide: getModelToken('Loan'),
-          useValue: {},
+          provide: LoanService,
+          useValue: {
+            createLoan: jest.fn(() => ({
+              pipe: jest.fn(() => ({
+                toPromise: jest.fn(),
+              })),
+            })),
+          },
         },
         {
           provide: NewLoanPublisher,
-          useValue: { publish: jest.fn() },
+          useValue: {
+            publish: jest.fn(),
+          },
         },
       ],
     }).compile();
 
-    newLoanPublisher = app.get<NewLoanPublisher>(NewLoanPublisher);
-    loanService = app.get<LoanService>(LoanService);
-  });
-  it('should be defined', () => {
-    expect(loansController).toBeDefined();
+    controller = module.get<LoansController>(LoansController);
+    loansService = module.get<LoanService>(LoanService);
+    newLoanPublisher = module.get<NewLoanPublisher>(NewLoanPublisher);
   });
 
-  describe('updateLoan', () => {
-    it('should return the updated loan', (done) => {
+  describe('createLoan', () => {
+    it('should create a loan and publish a message', async () => {
       // Arrange
-      const updatedLoan = new LoanDomainModel({
-        bookId: 'bookId',
-        userId: 'userId',
-        title: 'title',
-        loanDate: new Date(),
-        returnDate: new Date(),
-      });
-
-      loanService.updateLoan = jest.fn().mockResolvedValue(updatedLoan);
+      const loan: LoanSchemaMongo = {
+        bookId: '',
+        userId: '',
+        loanDate: undefined,
+        returnDate: undefined,
+      };
 
       // Act
-      const result = loansController.updateLoan('loanId', {
-        loanDate: new Date(),
-      });
+      const result: Observable<LoanSchemaMongo> = await controller.createLoan(
+        loan,
+      );
 
       // Assert
-      expect(loanService.updateLoan).toHaveBeenCalledWith('loanId', {
-        loanDate: new Date(),
-      });
-      expect(result).toBe(updatedLoan);
+      expect(newLoanPublisher.publish).toHaveBeenCalledWith(loan);
+      expect(loansService.createLoan).toHaveBeenCalledWith(loan);
+      expect(result).toBeDefined();
     });
 
-    it('should throw an error if loanService throws an error', async () => {
+    it('should return an Observable', async () => {
       // Arrange
-      const loanId = 'loanId';
-      const update = { loanDate: new Date() };
-      const error: any = new Error('Loan not found');
-      loanService.updateLoan = jest.fn().mockRejectedValue(error);
+      const loan: LoanSchemaMongo = {
+        bookId: '',
+        userId: '',
+        loanDate: undefined,
+        returnDate: undefined,
+      };
 
-      // Act and Assert
-      await expect(loansController.updateLoan(loanId, update)).rejects.toEqual(
-        error,
+      // Act
+      const result: Observable<LoanSchemaMongo> = await controller.createLoan(
+        loan,
       );
-      expect(loanService.updateLoan).toHaveBeenCalledWith(loanId, update);
+
+      // Assert
+      expect(result).toBeInstanceOf(Observable);
     });
   });
 });

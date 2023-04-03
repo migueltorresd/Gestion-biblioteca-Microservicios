@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 /**
  * Este metodo se encarga de crear la aplicacion y de configurar el microservicio
@@ -8,6 +9,15 @@ import { AppModule } from './app.module';
  */
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const config = new DocumentBuilder()
+    .setTitle('SISTEMA')
+    .setDescription('Clasificacion')
+    .setVersion('1.0')
+    .addTag('miguel')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.RMQ,
     options: {

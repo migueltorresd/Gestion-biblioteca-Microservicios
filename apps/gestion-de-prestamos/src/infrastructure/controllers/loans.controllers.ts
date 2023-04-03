@@ -12,7 +12,15 @@ import { LoanSchemaMongo } from '../persistence/database/mongo/schemas/loan.sche
 import { LoanService } from '../services/loan.service';
 import { NewLoanPublisher } from '../messaging/publishers/new-loan.publisher';
 import { DateGuard } from '../utils/guards/validation-auth.guard';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+/**
+ * Este controlador es el encargado de recibir las peticiones de crear, buscar y eliminar un libro
+ *
+ * @export
+ * @class LoansController
+ */
+@ApiTags('loans')
 @Controller('loans')
 export class LoansController {
   constructor(
@@ -20,6 +28,14 @@ export class LoansController {
     private readonly newLoanPublisher: NewLoanPublisher,
   ) {}
 
+  /**
+   * Este metodo es el encargado de recibir la peticion de crear un libro
+   *
+   * @param {LoanSchemaMongo} loan // recibe un objeto de tipo LoanSchemaMongo
+   * @return {Observable<LoanSchemaMongo>} // retorna un observable de un LoanSchemaMongo
+   * @memberof LoansController
+   */
+  @ApiOperation({ summary: 'Crea prestamo de libro' })
   @UseGuards(DateGuard)
   @Post()
   createLoan(@Body() loan: LoanSchemaMongo): Observable<LoanSchemaMongo> {
@@ -27,6 +43,15 @@ export class LoansController {
     return this.loansService.createLoan(loan);
   }
 
+  /**
+   * Este metodo es el encargado de recibir la peticion de buscar un libro por su titulo
+   *
+   * @param {string} id // el id del libro
+   * @param {Partial<LoanSchemaMongo>} update // el estado de prestamo del libro
+   * @return {Observable<LoanSchemaMongo>} // retorna un observable de un LoanSchemaMongo
+   * @memberof LoansController
+   */
+  @ApiOperation({ summary: 'Actualiza prestamo de libro' })
   @UseGuards(DateGuard)
   @Put(':id')
   updateLoan(
