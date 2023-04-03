@@ -3,6 +3,14 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { GestionDePrestamosModule } from './gestion-de-prestamos.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
+/**
+ * Este es el archivo principal de la aplicación que se encarga de
+ * iniciar la aplicación y configurar el servidor de documentación
+ * de la aplicación y variables de entorno y el servidor de mensajeria
+ *
+ * @async
+ * @returns {*}
+ */
 async function bootstrap() {
   const app = await NestFactory.create(GestionDePrestamosModule);
   const config = new DocumentBuilder()

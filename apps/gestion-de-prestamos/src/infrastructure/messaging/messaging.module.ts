@@ -2,6 +2,14 @@ import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { NewLoanPublisher } from './publishers/new-loan.publisher';
 
+/**
+ * Este es el módulo de mensajeria que se encarga de
+ * inyectar los publishers y los clientes de mensajeria
+ *
+ * @export
+ * @class MessagingModule
+ * @typedef {MessagingModule}
+ */
 @Module({
   imports: [
     ClientsModule.register([

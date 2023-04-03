@@ -8,7 +8,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { Observable, filter, map } from 'rxjs';
 import { CreateBookUseCase } from '../../application/add-book/create-book-case';
 import { DeleteBookUseCase } from '../../application/delete-book/delete-book';
 import { GetBookUseCase } from '../../application/get-book/get-book-case';
@@ -19,6 +19,7 @@ import { CreateBookPublisher } from '../messaging/publishers/create-book.publish
 import { BookService } from '../persistence/servces/book.service';
 import { EventPattern, Payload } from '@nestjs/microservices';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { BookDto } from '../dto';
 
 /**
  * Este controlador es el encargado de recibir las peticiones de crear, buscar y eliminar un libro
@@ -29,6 +30,13 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 @ApiTags('Clasification')
 @Controller('Classification')
 export class ClassificationController {
+  /**
+   * se crea constructor de la clase y se le asigna el servicio de libro y el publisher de crear libro
+   *
+   * @constructor
+   * @param {BookService} bookService
+   * @param {CreateBookPublisher} createBookPublisher
+   */
   constructor(
     private readonly bookService: BookService,
     private readonly createBookPublisher: CreateBookPublisher,
@@ -59,9 +67,13 @@ export class ClassificationController {
    */
   @ApiOperation({ summary: 'Busca Por Titulo de libro' })
   @Get(':title')
-  findBookByTitle(@Param('title') title: string) {
+  findBookByTitle(@Param('title') title: string): Observable<BookDomainEntity> {
     const usecase = new GetBookUseCase(this.bookService);
-    return usecase.execute(title);
+    return usecase.execute(title).pipe(
+      map((result) => result[0]), // asumiendo que siempre devuelve un solo elemento
+      filter((result) => result !== undefined),
+      map((result) => result as BookDomainEntity),
+    );
   }
 
   /**

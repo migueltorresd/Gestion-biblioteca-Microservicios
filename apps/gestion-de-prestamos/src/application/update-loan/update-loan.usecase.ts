@@ -3,12 +3,18 @@ import { LoanDomainModel } from '../../domain/models/loan.model';
 import { ILoanDomainServiceInterface } from '../../domain/services/loan.service';
 
 /**
- * Este caso de uso es el encargado de actualizar un prestamo 
+ * Este caso de uso es el encargado de actualizar un prestamo
  *
  * @export
  * @class UpdateLoanUseCase
  */
 export class UpdateLoanUseCase {
+  /**
+   * este contructor es el encargado de inyectar el servicio de dominio
+   * de prestamo
+   * @param {ILoanDomainServiceInterface<LoanDomainModel>} loanService
+   * @memberof UpdateLoanUseCase
+   */
   constructor(
     private loanService: ILoanDomainServiceInterface<LoanDomainModel>,
   ) {}

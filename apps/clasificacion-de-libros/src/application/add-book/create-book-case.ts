@@ -9,6 +9,12 @@ import { IBoookDomainService } from '../../domain/services/book.service';
  * @class createBookUseCase
  */
 export class CreateBookUseCase {
+  /**
+   * se crea constructor de la clase y se le asigna el servicio de libro
+   *
+   * @constructor
+   * @param {IBoookDomainService} bookService
+   */
   constructor(private readonly bookService: IBoookDomainService) {}
 
   /**

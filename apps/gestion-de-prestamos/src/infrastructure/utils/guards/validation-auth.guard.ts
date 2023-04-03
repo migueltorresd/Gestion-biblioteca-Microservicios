@@ -3,11 +3,8 @@ import { CanActivate, ExecutionContext } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
 import { filter } from 'rxjs/operators';
 /**
- * Guard para validar que el usuario sea admin
+ * Guard para validar que la fecha de devolución sea mayor o igual a la fecha de préstamo
  *
- * @param body // el body de la peticion
- * @Param {date} loanDate // la fecha de prestamo
- * @Param {date} returnDate // la fecha de devolucion
  * @export
  * @class SecretGuard // la clase que implementa el guard
  * @Returns {boolean} // retorna un booleano si es true permite el acceso para actualizar un libro
@@ -15,6 +12,12 @@ import { filter } from 'rxjs/operators';
  */
 @Injectable()
 export class DateGuard implements CanActivate {
+  /**
+   * canActivate es el metodo que se ejecuta antes de actualizar un libro
+   *
+   * @param {ExecutionContext} context
+   * @returns {Observable<boolean>}
+   */
   canActivate(context: ExecutionContext): Observable<boolean> {
     const req = context.switchToHttp().getRequest();
     const body = req.body;

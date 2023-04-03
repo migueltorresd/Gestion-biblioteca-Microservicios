@@ -1,26 +1,54 @@
 import { IUserDomainInterface } from './interfaces/user-domain.interface';
 
 /**
- * Esta clase representa la entidad de usuario del dominio
- * @param {name} string // el nombre del usuario
- * @param {email} string // el correo del usuario
- * @param {doument} string // el documento del usuario
- * @param {phone} string // el telefono del usuario
- * @param {user} string // el usuario del para login
- * @param {password} string // el password del usuario
- * @param {lender} string // los prestamos de libros del usuario
+ * Esta clase representa la entidad de usuario del dominio de la aplicación
  *
  * @export
  * @class UserDomainModel
  * @implements {IUserDomainInterface}
  */
 export class UserDomainModel implements IUserDomainInterface {
+  /**
+   * nombre del usuario
+   *
+   * @type {string}
+   */
   name: string;
+  /**
+   * correo del usuario
+   *
+   * @type {string}
+   */
   email: string;
+  /**
+   * documento del usuario
+   *
+   * @type {string}
+   */
   doument: string;
+  /**
+   * telefono del usuario
+   *
+   * @type {string}
+   */
   phone: string;
+  /**
+   * tipo admin o usuario
+   *
+   * @type {string}
+   */
   user: string;
+  /**
+   * contraseña del usuario
+   *
+   * @type {string}
+   */
   password: string;
+  /**
+   * estado de prestamo
+   *
+   * @type {string}
+   */
   lender: string;
 
   /**

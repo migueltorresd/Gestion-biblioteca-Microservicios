@@ -8,6 +8,14 @@ import { userSchema, UserSchemaMongo } from './schemas/user.schema';
 import { LoanMongoService } from './services/loans.mongo.service';
 import { UserMongoService } from './services/user-mongo.service';
 
+/**
+ * Este es el módulo de la base de datos mongo que se encarga de
+ * inyectar los servicios y los repositorios de la base de datos
+ *
+ * @export
+ * @class MongoModule
+ * @typedef {MongoModule}
+ */
 @Module({
   imports: [
     MongooseModule.forRootAsync({

@@ -15,6 +15,13 @@ import { UserDomainModel } from '../../../../../domain/models/user.model';
  */
 @Injectable()
 export class UserMongoService implements IUserDomainInterface<UserSchemaMongo> {
+  /**
+   * Este constructor es el encargado de inyectar el repositorio de usuarios
+   * para poder utilizarlo en los métodos de esta clase
+   *
+   * @constructor
+   * @param {UserRepository} userRepository // repositorio de usuarios
+   */
   constructor(private readonly userRepository: UserRepository) {}
 
   /**

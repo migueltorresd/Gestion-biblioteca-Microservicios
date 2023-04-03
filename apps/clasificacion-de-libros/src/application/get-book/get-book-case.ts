@@ -10,6 +10,13 @@ import { IBoookDomainService } from '../../domain/services/book.service';
  * @class GetBookUseCase
  */
 export class GetBookUseCase {
+  /**
+   * Este contructor es el encargado de inyectar el servicio de dominio
+   * de libros
+   *
+   * @constructor
+   * @param {IBoookDomainService} bookService // Servicio de dominio de libros
+   */
   constructor(private readonly bookService: IBoookDomainService) {}
 
   /**

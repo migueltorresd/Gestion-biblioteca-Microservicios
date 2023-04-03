@@ -10,6 +10,12 @@ import { IUserDomainInterface } from '../../domain/services/user.service';
  * @class CreateUserUseCase
  */
 export class CreateUserUseCase {
+  /**
+   * se crea un constructor que recibe un servicio de usuario
+   * para poder crear un usuario
+   * @param {IUserDomainInterface<UserDomainModel>} userService
+   * @memberof CreateUserUseCase
+   */
   constructor(
     private readonly userService: IUserDomainInterface<UserDomainModel>,
   ) {}

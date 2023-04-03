@@ -11,6 +11,13 @@ import { IBoookDomainService } from '../../domain/services/book.service';
  */
 @Injectable()
 export class UpdateLoanStatusUseCase {
+  /**
+   * Este contructor es el encargado de inyectar el servicio de dominio
+   * de libros para poder usarlo en el caso de uso
+   *
+   * @constructor
+   * @param {IBoookDomainService} bookService
+   */
   constructor(private readonly bookService: IBoookDomainService) {}
 
   /**

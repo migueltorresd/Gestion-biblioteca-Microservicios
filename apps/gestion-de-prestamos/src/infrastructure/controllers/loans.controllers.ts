@@ -23,6 +23,13 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 @ApiTags('loans')
 @Controller('loans')
 export class LoansController {
+  /**
+   * Este contructor es el encargado de inyectar el servicio de prestamo
+   * y el servicio de publicacion de prestamo nuevo
+   * @param {LoanService} loansService // inyecta el servicio de prestamo
+   * @param {NewLoanPublisher} newLoanPublisher // inyecta el servicio de publicacion de prestamo nuevo
+   * @memberof LoansController
+   */
   constructor(
     private readonly loansService: LoanService,
     private readonly newLoanPublisher: NewLoanPublisher,

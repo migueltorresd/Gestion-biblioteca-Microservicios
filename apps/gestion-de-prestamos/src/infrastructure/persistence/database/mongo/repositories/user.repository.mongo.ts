@@ -14,6 +14,12 @@ import { IBase } from './interfaces/base.interface';
  */
 @Injectable()
 export class UserRepository implements IBase<UserSchemaMongo> {
+  /**
+   * Este contructor es el encargado de inyectar el modelo de mongoose
+   *
+   * @constructor
+   * @param {Repository<userDocument>} userRepository
+   */
   constructor(
     @InjectModel(UserSchemaMongo.name)
     private userRepository: Repository<userDocument>,

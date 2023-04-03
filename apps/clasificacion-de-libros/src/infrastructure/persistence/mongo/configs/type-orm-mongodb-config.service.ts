@@ -13,6 +13,13 @@ import { BookEntityMongo } from '../entities/book.entity';
  */
 @Injectable()
 export class TypeOrmMongoDBConfigService implements TypeOrmOptionsFactory {
+  /**
+   * Este contructor es el encargado de inyectar el servicio de configuracion
+   * de la base de datos
+   *
+   * @constructor
+   * @param {ConfigService} configService
+   */
   constructor(private readonly configService: ConfigService) {}
 
   /**

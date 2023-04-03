@@ -15,12 +15,23 @@ import { IBase } from './interfaces/base.interface';
  */
 @Injectable()
 export class BookRepository implements IBase<BookEntityMongo> {
+  /**
+   * este contructor es el encargado de inyectar el repositorio de libros de la base de datos
+   *
+   * @constructor
+   * @param {Repository<BookEntityMongo>} bookRepository
+   */
   constructor(
     @InjectRepository(BookEntityMongo)
     private bookRepository: Repository<BookEntityMongo>,
   ) {}
 
-  // se usa un observable para que el metodo sea asincrono y no se bloquee el hilo de ejecucion
+  /**
+   * este metodo se encarga de buscar todos los libros de la base de datos
+   *
+   * @param {*} BookEntityMongo
+   * @returns {Observable<BookEntityMongo>}
+   */
   create(BookEntityMongo): Observable<BookEntityMongo> {
     return from(this.bookRepository.save(BookEntityMongo));
   }
@@ -40,10 +51,25 @@ export class BookRepository implements IBase<BookEntityMongo> {
     };
     return from(this.bookRepository.find(options));
   }
+  /**
+   * este metodo se encarga de buscar un libro por su id y lo elimina
+   *
+   * @param {string} id // id del libro a eliminar
+   * @return {Observable<void>} // retorna un observable de rxjs que no contiene nada
+   * @memberof BookRepository
+   */
   deleteBook(id: string): Observable<void> {
     return from(this.bookRepository.delete(id)).pipe(mapTo(undefined));
   }
 
+  /**
+   * este metodo se encarga de buscar un libro por su id y lo actualiza
+   *
+   * @param {string} _id // id del libro a actualizar
+   * @param {boolean} updatedLoad // nuevo estado del prestamo del libro
+   * @return {Observable<BookEntityMongo>} // retorna un observable de rxjs que contiene el libro actualizado
+   * @memberof BookRepository
+   */
   updateLoanStatus(
     _id: string,
     updatedLoad: boolean,

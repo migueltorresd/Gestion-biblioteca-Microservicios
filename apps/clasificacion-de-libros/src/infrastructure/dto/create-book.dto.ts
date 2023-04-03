@@ -9,24 +9,27 @@ import {
 
 /**
  * Este dto es el encargado de recibir los datos de un libro para crearlo
- *
- * @param {id} string // el id del libro
- * @param {title} string // el titulo del libro
- * @param {author} string // el autor del libro
- * @param {description} string // la descripcion del libro
- * @param {publishedDate} Date // la fecha de publicacion del libro
- * @param {createdAt} Date // la fecha de creacion del libro
- * @param {updatedLoad} boolean // estado de prestamo
+ * para poder ser utilizados en la capa de infraestructura
  * @export
  * @class createBookDto
  */
 export class createBookDto {
+  /**
+   * id del libro
+   *
+   * @type {string}
+   */
   @ApiProperty({
     example: '5f9f1c9c0b9b9c0b9c0b9c0b',
     description: 'se genera automaticamente id',
   })
   @IsString()
   _id: string;
+  /**
+   * Titulo del libro
+   *
+   * @type {string}
+   */
   @ApiProperty({
     example: 'cien años de soledad',
     description: 'Nombre del libro',
@@ -35,6 +38,11 @@ export class createBookDto {
   @IsNotEmpty()
   title: string;
 
+  /**
+   * autor del libro en formato de objeto
+   *
+   * @type {string}
+   */
   @ApiProperty({
     example: {
       name: 'Gabriel',
@@ -46,6 +54,11 @@ export class createBookDto {
   @IsObject()
   author: string;
 
+  /**
+   * descripcion del libro
+   *
+   * @type {string}
+   */
   @ApiProperty({
     example: ' este libro trata sobre la historia de la familia Buendia ',
     description: ' la descripcion del libro',
@@ -53,6 +66,11 @@ export class createBookDto {
   @IsString()
   description: string;
 
+  /**
+   * fecha de publicacion del libro
+   *
+   * @type {?Date}
+   */
   @ApiProperty({
     example: 'cien años de soledad',
     description: 'Nombre del libro',
@@ -60,6 +78,11 @@ export class createBookDto {
   @IsDate()
   publishedDate?: Date;
 
+  /**
+   * fecha de creacion del libro
+   *
+   * @type {Date}
+   */
   @ApiProperty({
     example: '2020-11-02T23:00:00.000Z',
     description: 'la fecha de creacion del libro',
@@ -67,6 +90,11 @@ export class createBookDto {
   @IsDate()
   createdAt: Date;
 
+  /**
+   * estado de prestamo
+   *
+   * @type {boolean}
+   */
   @ApiProperty({
     example: 'true',
     description: 'estado de prestamo',

@@ -10,6 +10,12 @@ import { createBookDto } from '../../dto/create-book.dto';
  * @class CreateBookPublisher
  */
 export class CreateBookPublisher {
+  /**
+   * Creates an instance of CreateBookPublisher.
+   *
+   * @constructor
+   * @param {ClientProxy} client
+   */
   constructor(
     @Inject('CLASIFICACION_DE_LIBROS_SERVICE')
     private readonly client: ClientProxy,

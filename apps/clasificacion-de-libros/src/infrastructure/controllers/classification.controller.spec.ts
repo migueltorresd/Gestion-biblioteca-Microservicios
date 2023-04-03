@@ -11,6 +11,8 @@ import { createBookDto } from '../dto/create-book.dto';
 import { ModuleResolutionKind } from 'typescript';
 import { BookRepository } from '../persistence';
 import { CreateBookPublisher } from '../messaging';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { prototype } from 'events';
 
 describe('ClassificationController', () => {
   let classificationController: ClassificationController;
@@ -44,6 +46,14 @@ describe('ClassificationController', () => {
         {
           provide: UpdateLoanStatusUseCase,
           useValue: {},
+        },
+        {
+          provide: getRepositoryToken(BookDomainEntity),
+          useValue: {
+            find: jest.fn(),
+            findOne: jest.fn(),
+            save: jest.fn(),
+          },
         },
         {
           provide: CreateBookPublisher,
@@ -103,5 +113,44 @@ describe('ClassificationController', () => {
         done();
       });
     });
+  });
+  describe('findBookByTitle', () => {
+    it('should return a book entity when given a valid title', (done) => {
+      const expectedBook = new BookDomainEntity({
+        _id: '1',
+        author: 'Test Author',
+        description: 'Test Description',
+        publishedDate: new Date('2022-01-01'),
+        createdAt: new Date('2021-01-01'),
+        updatedLoad: false,
+        title: 'Test Book',
+      });
+
+      jest
+        .spyOn(GetBookUseCase.prototype, 'execute')
+        .mockReturnValue(of([expectedBook]));
+
+      classificationController
+        .findBookByTitle('Test Book')
+        .subscribe((result) => {
+          expect(result).toBeDefined();
+          expect(result.title).toEqual(expectedBook.title);
+          expect(result.author).toEqual(expectedBook.author);
+          done();
+        });
+    });
+
+    // it('should return undefined when given an invalid title', (done) => {
+    //   jest
+    //     .spyOn(GetBookUseCase.prototype, 'execute')
+    //     .mockReturnValue(of([null]));
+
+    //   classificationController
+    //     .findBookByTitle('Invalid Book')
+    //     .subscribe((result) => {
+    //       expect(result).toBeUndefined();
+    //       done();
+    //     });
+    // });
   });
 });

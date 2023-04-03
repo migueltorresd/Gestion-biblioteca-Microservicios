@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { BookDomainEntity } from '../../../../domain/entities';
 import { IBoookDomainService } from '../../../../domain/services/book.service';
 import { from, map, Observable, of, switchMap } from 'rxjs';
-
 import { BookEntityMongo } from '../entities/book.entity';
 import { BookRepository } from '../repositories/book.repository.mongo';
 
@@ -15,6 +14,12 @@ import { BookRepository } from '../repositories/book.repository.mongo';
  */
 @Injectable()
 export class BookMongoService implements IBoookDomainService<BookEntityMongo> {
+  /**
+   * este contructor es el encargado de inyectar el repositorio de libros de la base de datos
+   *
+   * @constructor
+   * @param {BookRepository} bookRepository // repositorio de libros
+   */
   constructor(private readonly bookRepository: BookRepository) {}
 
   /**
@@ -44,7 +49,7 @@ export class BookMongoService implements IBoookDomainService<BookEntityMongo> {
    * Este metodo es el encargado de eliminar un libro por su id y retorna un observable de null
    * porque el metodo deleteBook del repositorio retorna un void
    * @param {string} id // id del libro a eliminar
-   * @return {Observable<BookEntityMongo>}
+   * @return {Observable<BookEntityMongo>} // retorna un observable de un BookEntity
    * @memberof BookMongoService
    */
   deleteBook(id: string): Observable<BookEntityMongo> {
@@ -53,6 +58,13 @@ export class BookMongoService implements IBoookDomainService<BookEntityMongo> {
     );
   }
 
+  /**
+   * Este metodo es el encargado de buscar un libro por su id
+   *
+   * @param {string} bookId // id del libro a buscar
+   * @param {boolean} updatedLoad // nuevo estado del prestamo
+   * @returns {Observable<BookEntityMongo>} // retorna un observable de un BookEntity
+   */
   updateLoanStatus(
     bookId: string,
     updatedLoad: boolean,

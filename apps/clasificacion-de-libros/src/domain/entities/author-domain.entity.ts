@@ -1,23 +1,39 @@
 import { IAuthorDomainInterface } from './interfaces/author-domain.interface';
 
 /**
- * Esta clase representa la entidad de autor
- * @param {id} string // el id del autor
- * @param {name} string // el nombre del autor
- * @param {literaryGenre} string // el genero literario del autor
- * @param {birthDate} Date // la fecha de nacimiento del autor
+ * Esta clase representa la entidad de autor para la capa de dominio
  * @export
  * @class AuthorDomainEntity
  * @implements {IAuthorDomainInterface} // implementa la interfaz IAuthorDomainInterface
  */
 export class AuthorDomainEntity implements IAuthorDomainInterface {
+  /**
+   * ID del autor
+   *
+   * @type {string}
+   */
   _id: string;
+  /**
+   * Nombre del autor
+   *
+   * @type {string}
+   */
   name: string;
+  /**
+   * Genero literario del autor
+   *
+   * @type {string}
+   */
   literaryGenre: string;
+  /**
+   * Fecha de nacimiento del autor
+   *
+   * @type {Date}
+   */
   birthDate: Date;
 
   /**
-   * Se crea una instancia de la entidad de autor
+   * Crea una instancia de AuthorDomainEntity.
    *
    * @Param {id} string // el id del autor
    * @Param {name} string // el nombre del autor

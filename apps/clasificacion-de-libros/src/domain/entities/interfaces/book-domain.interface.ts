@@ -1,21 +1,50 @@
 /**
  * Interface para la entidad Book Domain Entity
- * @param {id} string // id del libro
- * @param {title} string // titulo del libro
- * @param {author} string // autor del libro
- * @param {description} string // descripcion del libro
- * @param {publishedDate} Date // fecha de publicacion del libro
- * @param {createdAt} Date // fecha de creacion del libro
- * @param {updatedLoad} boolean // fecha de actualizacion del libro
+ *
  * @export
  * @interface BookDomainInterface
  */
 export interface IBookDomainInterface {
+  /**
+   * ID del libro
+   *
+   * @type {string}
+   */
   _id: string;
+  /**
+   * Titulo del libro
+   *
+   * @type {string}
+   */
   title: string;
+  /**
+   * Autor del libro
+   *
+   * @type {string}
+   */
   author: string;
+  /**
+   * Descripcion del libro
+   *
+   * @type {string}
+   */
   description: string;
+  /**
+   * Fecha de publicacion del libro
+   *
+   * @type {?Date}
+   */
   publishedDate?: Date;
+  /**
+   * Fecha de creacion del libro
+   *
+   * @type {?Date}
+   */
   createdAt?: Date;
+  /**
+   * Fecha de actualizacion del libro
+   *
+   * @type {?boolean}
+   */
   updatedLoad?: boolean;
 }
