@@ -149,8 +149,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="54"
-                            class="link-to-prism">apps/clasificacion-de-libros/src/infrastructure/controllers/classification.controller.ts:54</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="55"
+                            class="link-to-prism">apps/clasificacion-de-libros/src/infrastructure/controllers/classification.controller.ts:55</a></div>
                 </td>
             </tr>
 
@@ -228,8 +228,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="100"
-                            class="link-to-prism">apps/clasificacion-de-libros/src/infrastructure/controllers/classification.controller.ts:100</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="105"
+                            class="link-to-prism">apps/clasificacion-de-libros/src/infrastructure/controllers/classification.controller.ts:105</a></div>
                 </td>
             </tr>
 
@@ -312,8 +312,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="69"
-                            class="link-to-prism">apps/clasificacion-de-libros/src/infrastructure/controllers/classification.controller.ts:69</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="70"
+                            class="link-to-prism">apps/clasificacion-de-libros/src/infrastructure/controllers/classification.controller.ts:70</a></div>
                 </td>
             </tr>
 
@@ -353,7 +353,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>        <code><a href="../classes/BookDomainEntity.html" target="_self" >Observable&lt;BookDomainEntity&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -393,8 +393,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="113"
-                            class="link-to-prism">apps/clasificacion-de-libros/src/infrastructure/controllers/classification.controller.ts:113</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="118"
+                            class="link-to-prism">apps/clasificacion-de-libros/src/infrastructure/controllers/classification.controller.ts:118</a></div>
                 </td>
             </tr>
 
@@ -477,8 +477,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="84"
-                            class="link-to-prism">apps/clasificacion-de-libros/src/infrastructure/controllers/classification.controller.ts:84</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="89"
+                            class="link-to-prism">apps/clasificacion-de-libros/src/infrastructure/controllers/classification.controller.ts:89</a></div>
                 </td>
             </tr>
 
@@ -564,7 +564,7 @@
   Put,
   Query,
 } from &#x27;@nestjs/common&#x27;;
-import { Observable } from &#x27;rxjs&#x27;;
+import { Observable, filter, map } from &#x27;rxjs&#x27;;
 import { CreateBookUseCase } from &#x27;../../application/add-book/create-book-case&#x27;;
 import { DeleteBookUseCase } from &#x27;../../application/delete-book/delete-book&#x27;;
 import { GetBookUseCase } from &#x27;../../application/get-book/get-book-case&#x27;;
@@ -575,6 +575,7 @@ import { CreateBookPublisher } from &#x27;../messaging/publishers/create-book.pu
 import { BookService } from &#x27;../persistence/servces/book.service&#x27;;
 import { EventPattern, Payload } from &#x27;@nestjs/microservices&#x27;;
 import { ApiOperation, ApiTags } from &#x27;@nestjs/swagger&#x27;;
+import { BookDto } from &#x27;../dto&#x27;;
 
 /**
  * Este controlador es el encargado de recibir las peticiones de crear, buscar y eliminar un libro
@@ -622,9 +623,13 @@ export class ClassificationController {
    */
   @ApiOperation({ summary: &#x27;Busca Por Titulo de libro&#x27; })
   @Get(&#x27;:title&#x27;)
-  findBookByTitle(@Param(&#x27;title&#x27;) title: string) {
+  findBookByTitle(@Param(&#x27;title&#x27;) title: string): Observable&lt;BookDomainEntity&gt; {
     const usecase &#x3D; new GetBookUseCase(this.bookService);
-    return usecase.execute(title);
+    return usecase.execute(title).pipe(
+      map((result) &#x3D;&gt; result[0]), // asumiendo que siempre devuelve un solo elemento
+      filter((result) &#x3D;&gt; result !&#x3D;&#x3D; undefined),
+      map((result) &#x3D;&gt; result as BookDomainEntity),
+    );
   }
 
   /**
@@ -669,8 +674,6 @@ export class ClassificationController {
   newloan(@Payload() data: string) {
     const newDate &#x3D; JSON.parse(data);
     const usecase &#x3D; new UpdateLoanStatusUseCase(this.bookService);
-    console.log(&#x27;----------NUEVO PRESTAMO---------&#x27;);
-    console.log(data);
     return usecase.execute(newDate.title, true);
   }
 }

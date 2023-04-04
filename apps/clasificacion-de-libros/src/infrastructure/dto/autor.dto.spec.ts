@@ -22,7 +22,7 @@ describe('AuthorDto', () => {
     it('should throw an error when _id is not a string', async () => {
       // Arrange
       const author = new AuthorDto();
-      author._id = 1234; // should be a string
+      author._id = null; // should be a string
       author.name = 'Gabriel Garcia Marquez';
       author.literaryGenre = 'Magical Realism';
       author.birthDate = new Date('1927-03-06');
@@ -39,7 +39,7 @@ describe('AuthorDto', () => {
       // Arrange
       const author = new AuthorDto();
       author._id = '1234';
-      author.name = 1234; // should be a string
+      author.name = null;
       author.literaryGenre = 'Magical Realism';
       author.birthDate = new Date('1927-03-06');
 
@@ -56,7 +56,7 @@ describe('AuthorDto', () => {
       const author = new AuthorDto();
       author._id = '1234';
       author.name = 'Gabriel Garcia Marquez';
-      author.literaryGenre = 'ciencia'; // should be a string
+      author.literaryGenre = null;
       author.birthDate = new Date('1927-03-06');
 
       // Act
@@ -73,7 +73,7 @@ describe('AuthorDto', () => {
       author._id = '1234';
       author.name = 'Gabriel Garcia Marquez';
       author.literaryGenre = 'Magical Realism';
-      author.birthDate = '1927-03-06'; // should be a Date
+      author.birthDate = null; // should be a Date
 
       // Act
       const validationErrors = await validate(author);

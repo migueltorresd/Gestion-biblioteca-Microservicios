@@ -118,8 +118,6 @@ export class ClassificationController {
   newloan(@Payload() data: string) {
     const newDate = JSON.parse(data);
     const usecase = new UpdateLoanStatusUseCase(this.bookService);
-    console.log('----------NUEVO PRESTAMO---------');
-    console.log(data);
     return usecase.execute(newDate.title, true);
   }
 }

@@ -42,9 +42,4 @@ export class UserController {
    *
    * @param data // esta data es la que llega del otro microservicio por medio
    */
-  @EventPattern('create-book')
-  createBook(@Payload() data: any) {
-    console.log('----------funciona---------');
-    console.log(data);
-  }
 }

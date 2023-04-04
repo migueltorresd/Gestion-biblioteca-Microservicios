@@ -1,19 +1,23 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { CanActivate, ExecutionContext } from '@nestjs/common';
-import { Observable, of } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import {
+  BadRequestException,
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+} from '@nestjs/common';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, filter, map } from 'rxjs/operators';
+
 /**
- * Guard para validar que la fecha de devolución sea mayor o igual a la fecha de préstamo
+ * este guard se encarga de validar que la fecha de devolucion sea mayor o igual a la fecha de prestamo
  *
  * @export
- * @class SecretGuard // la clase que implementa el guard
- * @Returns {boolean} // retorna un booleano si es true permite el acceso para actualizar un libro
+ * @class DateGuard
  * @implements {CanActivate}
  */
 @Injectable()
 export class DateGuard implements CanActivate {
   /**
-   * canActivate es el metodo que se ejecuta antes de actualizar un libro
+   * este metodo se encarga de validar que la fecha de devolucion sea mayor o igual a la fecha de prestamo
    *
    * @param {ExecutionContext} context
    * @returns {Observable<boolean>}
@@ -25,14 +29,15 @@ export class DateGuard implements CanActivate {
     const returnDate = body.returnDate;
 
     return of(returnDate >= loanDate).pipe(
-      filter((isValid) => {
-        if (!isValid) {
-          throw new BadRequestException(
+      filter((isValid) => isValid),
+      map(() => true),
+      catchError(() =>
+        throwError(
+          new BadRequestException(
             'La fecha de devolución debe ser mayor o igual a la fecha de préstamo.',
-          );
-        }
-        return true;
-      }),
+          ),
+        ),
+      ),
     );
   }
 }

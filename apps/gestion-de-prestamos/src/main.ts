@@ -9,15 +9,14 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
  * de la aplicación y variables de entorno y el servidor de mensajeria
  *
  * @async
- * @returns {*}
  */
 async function bootstrap() {
   const app = await NestFactory.create(GestionDePrestamosModule);
   const config = new DocumentBuilder()
-    .setTitle('sistema')
-    .setDescription('gestion de prestamos')
+    .setTitle('Sistema de biblioteca')
+    .setDescription('Gestion de prestamos')
     .setVersion('1.0')
-    .addTag('Miguel')
+    .addTag('Miguel Angel Torres Diaz')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

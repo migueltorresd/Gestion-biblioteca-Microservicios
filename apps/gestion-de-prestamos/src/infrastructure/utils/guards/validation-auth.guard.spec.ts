@@ -21,7 +21,11 @@ describe('DateGuard', () => {
       })),
     } as unknown as ExecutionContext;
   });
-
+  describe('is defined', () => {
+    it('should be defined', () => {
+      expect(dateGuard).toBeDefined();
+    });
+  });
   describe('canActivate', () => {
     it('should return true when returnDate is greater than or equal to loanDate', (done) => {
       // Arrange

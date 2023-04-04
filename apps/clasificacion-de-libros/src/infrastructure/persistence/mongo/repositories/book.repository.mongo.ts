@@ -19,7 +19,7 @@ export class BookRepository implements IBase<BookEntityMongo> {
    * este contructor es el encargado de inyectar el repositorio de libros de la base de datos
    *
    * @constructor
-   * @param {Repository<BookEntityMongo>} bookRepository
+   * @param {Repository<BookEntityMongo>} bookRepository // repositorio de libros
    */
   constructor(
     @InjectRepository(BookEntityMongo)
@@ -29,7 +29,7 @@ export class BookRepository implements IBase<BookEntityMongo> {
   /**
    * este metodo se encarga de buscar todos los libros de la base de datos
    *
-   * @param {*} BookEntityMongo
+   * @param BookEntityMongo // libro a crear
    * @returns {Observable<BookEntityMongo>}
    */
   create(BookEntityMongo): Observable<BookEntityMongo> {

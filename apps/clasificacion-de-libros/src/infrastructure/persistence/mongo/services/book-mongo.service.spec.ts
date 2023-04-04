@@ -30,7 +30,11 @@ describe('BookMongoService', () => {
       moduleRef.get<IBoookDomainService<BookEntityMongo>>(BookMongoService);
     bookRepository = moduleRef.get<BookRepository>(BookRepository);
   });
-
+  describe('is defined', () => {
+    it('should be defined', () => {
+      expect(bookMongoService).toBeDefined();
+    });
+  });
   describe('createBook', () => {
     it('should create a book and return it as an observable', async () => {
       // Arrange

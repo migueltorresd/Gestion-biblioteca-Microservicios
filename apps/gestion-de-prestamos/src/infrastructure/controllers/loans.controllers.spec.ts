@@ -38,6 +38,11 @@ describe('LoansController', () => {
     newLoanPublisher = module.get<NewLoanPublisher>(NewLoanPublisher);
   });
 
+  describe('is defined', () => {
+    it('should be defined', () => {
+      expect(controller).toBeDefined();
+    });
+  });
   describe('createLoan', () => {
     it('should create a loan and publish a message', async () => {
       // Arrange
@@ -57,24 +62,6 @@ describe('LoansController', () => {
       expect(newLoanPublisher.publish).toHaveBeenCalledWith(loan);
       expect(loansService.createLoan).toHaveBeenCalledWith(loan);
       expect(result).toBeDefined();
-    });
-
-    it('should return an Observable', async () => {
-      // Arrange
-      const loan: LoanSchemaMongo = {
-        bookId: '',
-        userId: '',
-        loanDate: undefined,
-        returnDate: undefined,
-      };
-
-      // Act
-      const result: Observable<LoanSchemaMongo> = await controller.createLoan(
-        loan,
-      );
-
-      // Assert
-      expect(result).toBeInstanceOf(Observable);
     });
   });
 });

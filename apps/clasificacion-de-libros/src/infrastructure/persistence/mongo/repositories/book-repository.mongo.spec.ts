@@ -39,7 +39,11 @@ describe('BookRepository', () => {
     );
     bookRepository = module.get<BookRepository>(BookRepository);
   });
-
+  describe('is defined', () => {
+    it('should be defined', () => {
+      expect(bookRepository).toBeDefined();
+    });
+  });
   describe('create', () => {
     let expectedBook: BookEntityMongo;
     let saveSpy: jest.SpyInstance;

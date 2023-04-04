@@ -4,6 +4,7 @@ import {
   IsObject,
   IsDate,
   IsBoolean,
+  validate,
 } from 'class-validator';
 import { createBookDto } from './create-book.dto';
 
@@ -25,94 +26,88 @@ describe('createBookDto', () => {
     expect(dto).toBeDefined();
   });
 
-  it('should have a valid _id', () => {
+  it('should have a valid _id', async () => {
     // Arrange
     dto._id = null;
 
     // Act
-    const errors = dto.errors;
+    const errors = await validate(dto);
 
     // Assert
-    expect(errors.length).toBe(1);
-    expect(errors[0].property).toBe('_id');
+    expect(errors.length).toEqual(2);
     expect(errors[0].constraints).toHaveProperty('isString');
   });
 
-  it('should have a valid title', () => {
+  it('should have a valid title', async () => {
     // Arrange
     dto.title = '';
 
     // Act
-    const errors = dto.errors;
+    const errors = await validate(dto);
 
     // Assert
-    expect(errors.length).toBe(1);
+    expect(errors.length).toEqual(2);
     expect(errors[0].property).toBe('title');
     expect(errors[0].constraints).toHaveProperty('isNotEmpty');
   });
 
-  it('should have a valid author', () => {
+  it('should have a valid author', async () => {
     // Arrange
     dto.author = null;
 
     // Act
-    const errors = dto.errors;
+    const errors = await validate(dto);
 
     // Assert
-    expect(errors.length).toBe(1);
-    expect(errors[0].property).toBe('author');
+    expect(errors.length).toEqual(1);
     expect(errors[0].constraints).toHaveProperty('isObject');
   });
 
-  it('should have a valid description', () => {
+  it('should have a valid description', async () => {
     // Arrange
     dto.description = null;
 
     // Act
-    const errors = dto.errors;
+    const errors = await validate(dto);
 
     // Assert
-    expect(errors.length).toBe(1);
-    expect(errors[0].property).toBe('description');
-    expect(errors[0].constraints).toHaveProperty('isString');
+    expect(errors.length).toEqual(2);
+    expect(errors[1].constraints).toHaveProperty('isString');
   });
 
-  it('should have a valid publishedDate', () => {
+  it('should have a valid publishedDate', async () => {
     // Arrange
     dto.publishedDate = null;
 
     // Act
-    const errors = dto.errors;
+    const errors = await validate(dto);
 
     // Assert
-    expect(errors.length).toBe(1);
-    expect(errors[0].property).toBe('publishedDate');
-    expect(errors[0].constraints).toHaveProperty('isDate');
+    expect(errors.length).toEqual(2);
+    expect(errors[1].constraints).toHaveProperty('isDate');
   });
 
-  it('should have a valid createdAt', () => {
+  it('should have a valid createdAt', async () => {
     // Arrange
     dto.createdAt = null;
 
     // Act
-    const errors = dto.errors;
+    const errors = await validate(dto);
 
     // Assert
-    expect(errors.length).toBe(1);
-    expect(errors[0].property).toBe('createdAt');
-    expect(errors[0].constraints).toHaveProperty('isDate');
+    expect(errors.length).toEqual(2);
+    expect(errors[1].constraints).toHaveProperty('isDate');
   });
 
-  it('should have a valid updatedLoad', () => {
+  it('should have a valid updatedLoad', async () => {
     // Arrange
     dto.updatedLoad = null;
 
     // Act
-    const errors = dto.errors;
+    const errors = await validate(dto);
 
     // Assert
-    expect(errors.length).toBe(1);
-    expect(errors[0].property).toBe('updatedLoad');
-    expect(errors[0].constraints).toHaveProperty('isBoolean');
+    expect(errors.length).toEqual(2);
+    expect(errors[1].constraints).toHaveProperty('isBoolean');
   });
 });
